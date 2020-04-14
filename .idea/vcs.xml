@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$/BOJ" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/ChoLog" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/SW-Expert-Academy" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/oda" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/softsquared_git" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/taxi" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/알고리즘 스터디/algorithm_study" vcs="Git" />
+  </component>
+</project>
