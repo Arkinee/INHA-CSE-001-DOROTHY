@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "656658313706",
+    "firebase_url": "https://inha-cse-dorothy.firebaseio.com",
+    "project_id": "inha-cse-dorothy",
+    "storage_bucket": "inha-cse-dorothy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:656658313706:android:28be75e56808b96c33c293",
+        "android_client_info": {
+          "package_name": "com.inha.dorothy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "656658313706-u143o8inos1med5lhug0cj6qaaseipkv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1scvSXedzn4yVdbcWfR_eWX6fwAYvjus"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "656658313706-u143o8inos1med5lhug0cj6qaaseipkv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
