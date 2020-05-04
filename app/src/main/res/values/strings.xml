@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">ArDrawing</string>
+    <string name="loading">로딩중...</string>
+
+    <!-- Splash -->
+    <string name="splsh_content_description">Splash</string>
+
+    <!-- Login -->
+    <string name="login_content_description">Login</string>
+    <string name="login_tv_app_name_1">Creative Drawing</string>
+    <string name="login_tv_app_name_2">Education</string>
+
+    <!-- Main -->
+    <string name="main_tv_user_name_tool">조현우님 반갑습니다!</string>
+
 </resources>
