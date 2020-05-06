@@ -1,37 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".src.main.MainActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="30dp"
         android:textColor="@android:color/black"
-        tools:text="@string/main_tv_user_name_tool"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="25dp"
-        />
+        android:textSize="25sp"
+        tools:text="@string/main_tv_user_name_tool" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_main_enter"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="25dp"
+            android:background="@drawable/src_main_background"
+            android:gravity="center"
+            android:text="@string/main_tv_enter"
+            android:textColor="@android:color/white"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_main_mine"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="25dp"
+            android:background="@drawable/src_main_background"
+            android:gravity="center"
+            android:text="@string/main_tv_mine"
+            android:textColor="@android:color/white"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/src_main_background"
+        android:gravity="center"
+        android:text="@string/main_tv_logout"
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
 
-        />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
-        />
-
-</LinearLayout>
+</RelativeLayout>

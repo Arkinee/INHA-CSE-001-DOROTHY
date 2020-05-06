@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/src_entrance_stroke"
+        android:paddingBottom="5dp">
+
+        <ImageView
+            android:id="@+id/iv_entrance_back_arrow"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/entrance_content_description"
+            android:onClick="onClick"
+            android:padding="10dp"
+            android:src="@drawable/ic_arrow_back" />
+
+        <EditText
+            android:id="@+id/edt_entrance_search"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:hint="@string/entrance_tv_search"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp" />
+
+        <ImageView
+            android:id="@+id/iv_entrance_search"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/entrance_content_description"
+            android:onClick="onClick"
+            android:padding="10dp"
+            android:src="@drawable/ic_search" />
+
+        <ImageView
+            android:id="@+id/iv_entrance_menu"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/entrance_content_description"
+            android:onClick="onClick"
+            android:padding="15dp"
+            android:src="@drawable/ic_menu" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/src_entrance_stroke">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="75dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/entrance_tv_room_title"
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="55dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/entrance_tv_room_person"
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_entrance"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_entrance" />
+
+
+</LinearLayout>

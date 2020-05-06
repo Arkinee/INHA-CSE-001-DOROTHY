@@ -12,5 +12,16 @@
 
     <!-- Main -->
     <string name="main_tv_user_name_tool">조현우님 반갑습니다!</string>
+    <string name="main_tv_enter">방 입장</string>
+    <string name="main_tv_mine">내 그림</string>
+    <string name="main_tv_logout">로그아웃</string>
+
+    <!-- Entrance -->
+    <string name="entrance_content_description">Enterance</string>
+    <string name="entrance_tv_search">검색</string>
+    <string name="entrance_tv_room_title">방 제목</string>
+    <string name="entrance_tv_room_person">인원</string>
+    <string name="entrance_tv_room_title_tools">인하초등학교 3학년 1반</string>
+    <string name="entrance_tv_room_person_tools">12/30</string>
 
 </resources>

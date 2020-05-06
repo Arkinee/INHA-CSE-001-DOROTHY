@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@drawable/src_entrance_stroke">
+
+    <TextView
+        android:id="@+id/tv_item_entrance_room_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="25dp"
+        android:text="@string/entrance_tv_room_title_tools"
+        android:textColor="@android:color/black" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/tv_item_entrance_room_person"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="50dp"
+        android:text="@string/entrance_tv_room_person_tools"
+        android:textColor="@android:color/black" />
+
+</LinearLayout>

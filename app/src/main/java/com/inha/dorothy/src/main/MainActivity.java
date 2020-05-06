@@ -1,9 +1,11 @@
-package com.inha.dorothy;
+package com.inha.dorothy.src.main;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import com.inha.dorothy.BaseActivity;
+import com.inha.dorothy.R;
+
+public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,4 +1,4 @@
-package com.inha.dorothy;
+package com.inha.dorothy.src.splash;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -6,10 +6,12 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
+
+import com.inha.dorothy.BaseActivity;
+import com.inha.dorothy.R;
+import com.inha.dorothy.src.login.LoginActivity;
 
 public class SplashActivity extends BaseActivity {
 
@@ -20,10 +22,10 @@ public class SplashActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        if (!isOnline()) {
+        if (!isOnline()) {  // 네트워크 연결이 되어 있지 않다면
             final AlertDialog.Builder onlineDialog = new AlertDialog.Builder(this);
             onlineDialog.setTitle("Online Check");
-            onlineDialog.setMessage("You are Offline T.T");
+            onlineDialog.setMessage("Network connection fail!");
             onlineDialog.setPositiveButton("Close", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.cancel();
@@ -32,10 +34,10 @@ public class SplashActivity extends BaseActivity {
             });
 
             onlineDialog.setNegativeButton("Retry", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
+                public void onClick(DialogInterface dialog, int which) {    // 네트워크 연결 체크 재시도
                     if (isOnline()) {
                         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                        LoginActivity.stayLogin = true;
+                        LoginActivity.mStayLogin = true;
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                         finish();
                     } else {
@@ -46,7 +48,7 @@ public class SplashActivity extends BaseActivity {
             onlineDialog.show();
         } else {
             mHandler = new Handler();
-            mHandler.postDelayed(mrun, 3000);
+            mHandler.postDelayed(mrun, 3000);   // 3초 딜레이
         }
     }
 
@@ -54,7 +56,7 @@ public class SplashActivity extends BaseActivity {
         @Override
         public void run() {
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-            LoginActivity.stayLogin = true;
+            LoginActivity.mStayLogin = true;
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             finish();
         }
