@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,7 +23,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
         this.mRoomList = roomList;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvRoomTitle;
         TextView tvRoomPerson;
@@ -53,8 +52,8 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Room roomItem = mRoomList.get(position);
-        holder.tvRoomTitle.setText(roomItem.getTitle());
-        holder.tvRoomPerson.setText(roomItem.getPerson());
+        holder.tvRoomTitle.setText(roomItem.info.title);
+        holder.tvRoomPerson.setText(String.valueOf(roomItem.info.person).concat(mContext.getString(R.string.entrance_person_limit)));
     }
 
     @Override

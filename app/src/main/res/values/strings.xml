@@ -26,6 +26,7 @@
     <string name="entrance_tv_room_person_tools">12/30</string>
     <string name="entrance_menu_create">방 생성</string>
     <string name="entrance_menu_remove">방 제거</string>
+    <string name="entrance_person_limit">/ 30</string>
 
     <!-- Create -->
     <string name="create_room_title">방 제목 (필수)</string>

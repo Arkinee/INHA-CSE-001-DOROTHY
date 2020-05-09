@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         android:textColor="@android:color/black"
         android:textSize="25sp"
         tools:text="@string/main_tv_user_name_tool" />
