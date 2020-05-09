@@ -12,6 +12,7 @@
 
     <!-- Main -->
     <string name="main_tv_user_name_tool">조현우님 반갑습니다!</string>
+    <string name="main_tv_user_name_after">님 반갑습니다!</string>
     <string name="main_tv_enter">방 입장</string>
     <string name="main_tv_mine">내 그림</string>
     <string name="main_tv_logout">로그아웃</string>
@@ -23,5 +24,23 @@
     <string name="entrance_tv_room_person">인원</string>
     <string name="entrance_tv_room_title_tools">인하초등학교 3학년 1반</string>
     <string name="entrance_tv_room_person_tools">12/30</string>
+    <string name="entrance_menu_create">방 생성</string>
+    <string name="entrance_menu_remove">방 제거</string>
+
+    <!-- Create -->
+    <string name="create_room_title">방 제목 (필수)</string>
+    <string name="create_room_password">비밀번호 (필수)</string>
+    <string name="create_room_btn">생성</string>
+
+    <!-- Brush -->
+    <string name="start_new">New</string>
+    <string name="brush">Brush</string>
+    <string name="erase">Erase</string>
+    <string name="save">Save</string>
+    <string name="load">Load</string>
+    <string name="paint">Paint</string>
+    <string name="sml">Small</string>
+    <string name="med">Medium</string>
+    <string name="lrg">Large</string>
 
 </resources>

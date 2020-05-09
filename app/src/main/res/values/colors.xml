@@ -6,4 +6,7 @@
     <color name="colorTitle">#002C5F</color>
     <color name="colorMainButton">#0070C0</color>
 
+    <color name="grey_100">#5C5959</color>
+    <color name="grey_300">#e0e0e0</color>
+
 </resources>

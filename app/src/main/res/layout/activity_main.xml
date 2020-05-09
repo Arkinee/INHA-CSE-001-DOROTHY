@@ -8,6 +8,7 @@
     tools:context=".src.main.MainActivity">
 
     <TextView
+        android:id="@+id/tv_main_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -32,6 +33,7 @@
             android:layout_marginEnd="25dp"
             android:background="@drawable/src_main_background"
             android:gravity="center"
+            android:onClick="OnClick"
             android:text="@string/main_tv_enter"
             android:textColor="@android:color/white"
             android:textSize="30sp"
@@ -47,6 +49,7 @@
             android:layout_marginBottom="25dp"
             android:background="@drawable/src_main_background"
             android:gravity="center"
+            android:onClick="OnClick"
             android:text="@string/main_tv_mine"
             android:textColor="@android:color/white"
             android:textSize="30sp"
@@ -55,6 +58,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/tv_main_logout"
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
@@ -62,6 +66,7 @@
         android:layout_marginBottom="30dp"
         android:background="@drawable/src_main_background"
         android:gravity="center"
+        android:onClick="OnClick"
         android:text="@string/main_tv_logout"
         android:textColor="@android:color/white"
         android:textSize="20sp" />
