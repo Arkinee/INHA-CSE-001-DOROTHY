@@ -18,7 +18,17 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
     private Context mContext;
     private ArrayList<Room> mRoomList;
 
-    public RoomAdapter(Context context, ArrayList<Room> roomList){
+    public interface OnItemClickListener {
+        void onItemClick(View v, int pos);
+    }
+
+    private OnItemClickListener mListener = null;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.mListener = listener;
+    }
+
+    public RoomAdapter(Context context, ArrayList<Room> roomList) {
         this.mContext = context;
         this.mRoomList = roomList;
     }
@@ -33,6 +43,18 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
             // 뷰 객체에 대한 참조. (hold strong reference)
             tvRoomTitle = itemView.findViewById(R.id.tv_item_entrance_room_title);
             tvRoomPerson = itemView.findViewById(R.id.tv_item_entrance_room_person);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = getAdapterPosition();
+                    if (pos != RecyclerView.NO_POSITION) {
+                        if (mListener != null) {
+                            mListener.onItemClick(v, pos);
+                        }
+                    }
+                }
+            });
 
         }
     }
@@ -60,7 +82,6 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
     public int getItemCount() {
         return mRoomList.size();
     }
-
 
 
 }

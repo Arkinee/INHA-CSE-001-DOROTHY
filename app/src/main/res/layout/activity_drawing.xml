@@ -11,7 +11,7 @@
         android:background="@android:color/transparent"
         >
 
-        <com.softsquared.drawing.view.AutoFitTextureView
+        <com.inha.dorothy.src.draw.view.AutoFitTextureView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/textureView"/>
@@ -37,7 +37,7 @@
 
 
         <!-- Custom View -->
-        <com.softsquared.drawing.view.DrawingView
+        <com.inha.dorothy.src.draw.view.DrawingView
             android:id="@+id/drawing"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

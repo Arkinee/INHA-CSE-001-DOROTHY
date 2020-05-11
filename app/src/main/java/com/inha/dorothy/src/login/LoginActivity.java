@@ -81,14 +81,11 @@ public class LoginActivity extends BaseActivity {
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
-            Log.d("로그", "onactivityresult");
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
-                Log.d("로그", "onactivityresult2");
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
-                Log.d("로그", "onactivityresult3");
             } catch (ApiException e) {
                 Log.w("로그", "Google sign in failed", e);
             }

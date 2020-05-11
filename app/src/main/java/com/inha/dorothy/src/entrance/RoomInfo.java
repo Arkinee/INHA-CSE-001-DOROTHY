@@ -1,26 +1,31 @@
 package com.inha.dorothy.src.entrance;
 
+import com.google.firebase.database.Exclude;
+import com.google.firebase.database.IgnoreExtraProperties;
+
 import java.util.HashMap;
 import java.util.Map;
 
+@IgnoreExtraProperties
 public class RoomInfo {
 
     public String title;
     public String password;
-    public Integer person;
-    public Integer doodle;
+    public Long person;
+    public Long doodle;
 
     public RoomInfo(){
 
     }
 
-    public RoomInfo(String title, String password, Integer  person, Integer doodle){
+    public RoomInfo(String title, String password, Long  person, Long doodle){
         this.title = title;
         this.password = password;
         this.person = person;
         this.doodle = doodle;
     }
 
+    @Exclude
     public Map<String, Object> toMap(){
         HashMap<String, Object> result = new HashMap<>();
         result.put("title", title);

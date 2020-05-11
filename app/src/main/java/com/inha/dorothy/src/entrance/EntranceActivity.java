@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 
@@ -23,8 +24,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.inha.dorothy.BaseActivity;
 import com.inha.dorothy.R;
+import com.inha.dorothy.src.draw.DrawingActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 public class EntranceActivity extends BaseActivity implements PopupMenu.OnMenuItemClickListener {
@@ -37,12 +44,21 @@ public class EntranceActivity extends BaseActivity implements PopupMenu.OnMenuIt
 
     private ArrayList<Room> mRoomArrayList;
 
+    private EditText mEdtEntrance;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_entrance);
 
         mRoomArrayList = new ArrayList<>();
+        mEdtEntrance = findViewById(R.id.edt_entrance_search);
+        mEdtEntrance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mEdtEntrance.setInputType(1);
+            }
+        });
 
         mRvRoom = findViewById(R.id.rv_entrance);
         mRvRoom.setLayoutManager(new LinearLayoutManager(this));
@@ -57,21 +73,16 @@ public class EntranceActivity extends BaseActivity implements PopupMenu.OnMenuIt
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mRoomArrayList.clear();
 
-                Log.d("로그", dataSnapshot.getValue()+"");
-//                for(DataSnapshot ds : dataSnapshot.getChildren()){
-//                    Log.d("로그", ds.getKey());
-//
-//                    for(DataSnapshot deep : ds.getChildren()){
-//                        RoomInfo info = deep.getValue(RoomInfo.class);
-//                        Log.d("로그", deep.getValue() + "");
-////                        Log.d("로그", info.title);
-//                    }
-//
-////                    Room room = ds.getValue(Room.class);
-////                    Log.d("로그", room.info.title);
-////                    mRoomArrayList.add(room);
-//                }
-
+                if (dataSnapshot.hasChildren()) {
+                    Iterator<DataSnapshot> iter = dataSnapshot.getChildren().iterator();
+                    while (iter.hasNext()) {
+                        DataSnapshot snap = iter.next();
+                        Log.d("로그", "key: " + snap.getKey());
+                        RoomInfo info = snap.child("RoomInfo").getValue(RoomInfo.class);
+                        Log.d("로그", "info: " + info.title);
+                        mRoomArrayList.add(new Room(Integer.valueOf(snap.getKey()), info));
+                    }
+                }
                 mAdapter.notifyDataSetChanged();
             }
 
@@ -81,25 +92,34 @@ public class EntranceActivity extends BaseActivity implements PopupMenu.OnMenuIt
             }
         });
 
+        mAdapter.setOnItemClickListener(new RoomAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int pos) {
+                Intent intent = new Intent(getApplicationContext(), DrawingActivity.class);
+                intent.putExtra("room_id", mRoomArrayList.get(pos).id);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
-    public boolean onMenuItemClick(@NonNull MenuItem item){
-        switch (item.getItemId()){
+    public boolean onMenuItemClick(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
             case R.id.create:
                 Intent intent = new Intent(getApplicationContext(), CreateActivity.class);
                 startActivity(intent);
-                return  true;
+                return true;
             case R.id.remove:
                 showCustomMessage("방 삭제");
-                return  true;
+                return true;
             default:
                 return false;
         }
     }
 
-    public void onClick(View view){
-        switch (view.getId()){
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.iv_entrance_back_arrow:
                 finish();
                 break;

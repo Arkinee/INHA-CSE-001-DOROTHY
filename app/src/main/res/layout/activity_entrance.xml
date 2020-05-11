@@ -26,6 +26,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:inputType="none"
             android:hint="@string/entrance_tv_search"
             android:paddingStart="10dp"
             android:paddingEnd="10dp" />
