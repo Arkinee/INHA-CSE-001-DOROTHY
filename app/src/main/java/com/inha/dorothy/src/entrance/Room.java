@@ -9,14 +9,14 @@ import java.util.Map;
 @IgnoreExtraProperties
 public class Room {
 
-    public int id;
+    public String id;
     public RoomInfo info;
 
     public Room(){
 
     }
 
-    public Room(int id, RoomInfo info){
+    public Room(String id, RoomInfo info){
         this.id = id;
         this.info = info;
     }
@@ -25,7 +25,7 @@ public class Room {
     public Map<String, Object> toMap(){
         HashMap<String, Object> result = new HashMap<>();
         result.put("room_id", id);
-        result.put(String.valueOf(id), info);
+        result.put("RoomInfo", info);
         return result;
     }
 

@@ -8,8 +8,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/src_entrance_stroke">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/iv_create_back_arrow"
@@ -70,13 +69,17 @@
         android:paddingEnd="15dp"
         android:textSize="20sp" />
 
-    <Button
+    <TextView
         android:id="@+id/btn_create"
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:layout_gravity="center_horizontal"
+        android:gravity="center"
         android:layout_marginTop="30dp"
-        android:background="@drawable/src_create_background"
+        android:onClick="OnClick"
+        android:background="@drawable/src_main_background"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
         android:text="@string/create_room_btn"
         android:textSize="20sp" />
 

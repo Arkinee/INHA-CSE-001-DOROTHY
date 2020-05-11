@@ -32,6 +32,9 @@
     <string name="create_room_title">방 제목 (필수)</string>
     <string name="create_room_password">비밀번호 (필수)</string>
     <string name="create_room_btn">생성</string>
+    <string name="create_room_already_same_title">이미 해당 제목의 방이 존재합니다.</string>
+    <string name="create_room_title_input">방 제목을 입력해 주세요!</string>
+    <string name="create_room_password_input">비밀번호를 입력해 주세요!</string>
 
     <!-- Brush -->
     <string name="start_new">New</string>

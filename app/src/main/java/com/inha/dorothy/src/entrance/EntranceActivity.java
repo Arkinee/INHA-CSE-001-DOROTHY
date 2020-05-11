@@ -34,11 +34,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class EntranceActivity extends BaseActivity implements PopupMenu.OnMenuItemClickListener {
 
     private FirebaseDatabase mFirebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference mRoomReference = mFirebaseDatabase.getReference().child("room").child("room_id");
+
+    HashMap<String, Object> childUpdates = null;
+    Map<String, Object> roomValue = null;
 
     static int CREATE_ID = 1000;
 
@@ -83,7 +87,7 @@ public class EntranceActivity extends BaseActivity implements PopupMenu.OnMenuIt
                         Log.d("로그", "key: " + snap.getKey());
                         RoomInfo info = snap.child("RoomInfo").getValue(RoomInfo.class);
                         Log.d("로그", "info: " + info.title);
-                        mRoomArrayList.add(new Room(Integer.valueOf(snap.getKey()), info));
+                        mRoomArrayList.add(new Room(String.valueOf(snap.getKey()), info));
                     }
                 }
                 mAdapter.notifyDataSetChanged();
@@ -125,7 +129,37 @@ public class EntranceActivity extends BaseActivity implements PopupMenu.OnMenuIt
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK && requestCode == CREATE_ID){
+            assert data != null;
+            boolean flag = true;
+            String title = data.getStringExtra("title");
+            String password = data.getStringExtra("password");
 
+            for(Room room : mRoomArrayList){
+                if(room.info.title.equals(title)){
+                    flag = false;
+                    showCustomMessage(getString(R.string.create_room_already_same_title));
+                    break;
+                }
+            }
+
+            Long person = 0L;
+            Long doodle = 0L;
+
+            RoomInfo room = new RoomInfo(title, password, person, doodle);
+            postFirebaseDatabase(room, flag);
+
+        }
+    }
+
+    public void postFirebaseDatabase(RoomInfo room, boolean flag){
+        DatabaseReference mCreateReference = mFirebaseDatabase.getReference();
+        HashMap<String, Object> childUpdates = new HashMap<>();
+        Map<String, Object> postValues = null;
+        if(flag) {
+            postValues = room.toMap();
+
+            childUpdates.put("/room/room_id/" + mRoomArrayList.size() + "/RoomInfo", postValues);
+            mCreateReference.updateChildren(childUpdates);
         }
     }
 
