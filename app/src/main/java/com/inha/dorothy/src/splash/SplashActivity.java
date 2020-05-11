@@ -3,10 +3,13 @@ package com.inha.dorothy.src.splash;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
+import android.net.Network;
 import android.net.NetworkInfo;
+import android.net.NetworkRequest;
 import android.os.Bundle;
 import android.os.Handler;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 
 import com.inha.dorothy.BaseActivity;
@@ -16,6 +19,7 @@ import com.inha.dorothy.src.login.LoginActivity;
 public class SplashActivity extends BaseActivity {
 
     Handler mHandler;
+    private boolean connect = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,9 +74,30 @@ public class SplashActivity extends BaseActivity {
     }
 
     public boolean isOnline() {
+
         ConnectivityManager cm =
                 (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        return netInfo != null && netInfo.isConnectedOrConnecting();
+
+        if (android.os.Build.VERSION.SDK_INT >= 29) {
+            NetworkRequest.Builder builder = new NetworkRequest.Builder();
+            cm.registerNetworkCallback(builder.build(), new ConnectivityManager.NetworkCallback() {
+                @Override
+                public void onAvailable(@NonNull Network network) {
+                    // 네트워크를 사용할 준비가 되었을 때
+                    connect = true;
+                }
+
+                @Override
+                public void onLost(@NonNull Network network) {
+                    // 네트워크가 끊겼을 때
+                    connect = false;
+                }
+            });
+            return connect;
+        } else {
+            @Deprecated
+            NetworkInfo netInfo = cm.getActiveNetworkInfo();
+            return netInfo != null && netInfo.isConnectedOrConnecting();
+        }
     }
 }

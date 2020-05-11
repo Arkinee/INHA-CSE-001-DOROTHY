@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -38,6 +39,8 @@ public class EntranceActivity extends BaseActivity implements PopupMenu.OnMenuIt
 
     private FirebaseDatabase mFirebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference mRoomReference = mFirebaseDatabase.getReference().child("room").child("room_id");
+
+    static int CREATE_ID = 1000;
 
     private RecyclerView mRvRoom;
     private RoomAdapter mAdapter;
@@ -108,13 +111,21 @@ public class EntranceActivity extends BaseActivity implements PopupMenu.OnMenuIt
         switch (item.getItemId()) {
             case R.id.create:
                 Intent intent = new Intent(getApplicationContext(), CreateActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, CREATE_ID);
                 return true;
             case R.id.remove:
                 showCustomMessage("방 삭제");
                 return true;
             default:
                 return false;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK && requestCode == CREATE_ID){
+
         }
     }
 
