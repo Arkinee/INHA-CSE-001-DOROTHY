@@ -18,6 +18,8 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,13 +47,11 @@ public class EntranceActivity extends BaseActivity implements PopupMenu.OnMenuIt
     Map<String, Object> roomValue = null;
 
     static int CREATE_ID = 1000;
-
     private RecyclerView mRvRoom;
     private RoomAdapter mAdapter;
-
     private ArrayList<Room> mRoomArrayList;
-
     private EditText mEdtEntrance;
+    private String mRoomUniqueKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,13 +80,12 @@ public class EntranceActivity extends BaseActivity implements PopupMenu.OnMenuIt
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mRoomArrayList.clear();
 
+                // DB에 변화가 있을시 mRoomArrayList에 key값과 변수들을 불러온다.
                 if (dataSnapshot.hasChildren()) {
                     Iterator<DataSnapshot> iter = dataSnapshot.getChildren().iterator();
                     while (iter.hasNext()) {
                         DataSnapshot snap = iter.next();
-                        Log.d("로그", "key: " + snap.getKey());
-                        RoomInfo info = snap.child("RoomInfo").getValue(RoomInfo.class);
-                        Log.d("로그", "info: " + info.title);
+                        RoomInfo info = snap.child("RoomInfo").getValue(RoomInfo.class);//room_id의 child Roominfo의 값들을 가져온다.
                         mRoomArrayList.add(new Room(String.valueOf(snap.getKey()), info));
                     }
                 }
@@ -99,6 +98,7 @@ public class EntranceActivity extends BaseActivity implements PopupMenu.OnMenuIt
             }
         });
 
+        //방클릭 이벤트
         mAdapter.setOnItemClickListener(new RoomAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int pos) {
@@ -158,7 +158,12 @@ public class EntranceActivity extends BaseActivity implements PopupMenu.OnMenuIt
         if(flag) {
             postValues = room.toMap();
 
-            childUpdates.put("/room/room_id/" + mRoomArrayList.size() + "/RoomInfo", postValues);
+            /**NOTICE 삭제 수정이 반복되면 mRoomArrayList.size가 중복되어 생성될 가능성이 있음
+            따라서 mRoomReference.push().getKey() 를 통해 room_id 하위 child 값으로 들어가는 고유 키값을 생성**/
+//            childUpdates.put("/room/room_id/" + mRoomArrayList.size() + "/RoomInfo", postValues);
+
+            mRoomUniqueKey= mRoomReference.child("room_id").push().getKey();
+            childUpdates.put("/room/room_id/" + mRoomUniqueKey + "/RoomInfo", postValues);
             mCreateReference.updateChildren(childUpdates);
         }
     }

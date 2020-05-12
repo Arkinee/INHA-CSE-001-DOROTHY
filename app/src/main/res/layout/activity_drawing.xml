@@ -67,6 +67,7 @@
                 android:layout_height="wrap_content"
                 android:scaleType="centerCrop"
                 android:contentDescription="@string/start_new"
+                android:onClick="onClick"
                 android:src="@drawable/new_pic" />
             <View
                 android:layout_width="0dp"
@@ -77,6 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/brush"
+                android:onClick="onClick"
                 android:src="@drawable/brush" />
 
             <View
@@ -88,6 +90,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/erase"
+                android:onClick="onClick"
                 android:src="@drawable/eraser" />
 
             <View
@@ -99,6 +102,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/save"
+                android:onClick="onClick"
                 android:src="@drawable/save"/>
             <View
                 android:layout_width="0dp"

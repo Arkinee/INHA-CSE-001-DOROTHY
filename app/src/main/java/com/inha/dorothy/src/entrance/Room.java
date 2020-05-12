@@ -24,7 +24,7 @@ public class Room {
     @Exclude
     public Map<String, Object> toMap(){
         HashMap<String, Object> result = new HashMap<>();
-        result.put("room_id", id);
+        result.put("", id);
         result.put("RoomInfo", info);
         return result;
     }

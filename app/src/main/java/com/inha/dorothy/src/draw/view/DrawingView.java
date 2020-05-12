@@ -15,6 +15,8 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
+import com.inha.dorothy.R;
+
 
 public class DrawingView extends View {
 
@@ -42,8 +44,7 @@ public class DrawingView extends View {
     private void setupDrawing(){
 
         //prepare for drawing and setup paint stroke properties
-//        brushSize = getResources().getInteger(R.integer.small_size);
-        brushSize = 10;
+        brushSize = getResources().getInteger(R.integer.small_size);
         lastBrushSize = brushSize;
         mDrawPath = new Path();
         drawPaint = new Paint();

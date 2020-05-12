@@ -39,6 +39,11 @@ import java.util.ArrayList;
 
 public class DownloadService extends Service {
 
+    /**
+     * 반드시 Manifests에 Service 추가하기
+     */
+
+
     private static final String TAG = "Storage#DownloadService";
 
     /** Actions **/

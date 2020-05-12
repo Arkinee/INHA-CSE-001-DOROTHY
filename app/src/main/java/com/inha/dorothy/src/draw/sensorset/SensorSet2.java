@@ -8,6 +8,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.util.Log;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,6 +20,11 @@ import com.inha.dorothy.src.draw.models.FileNameInfo;
 import java.util.ArrayList;
 
 public class SensorSet2 implements SensorEventListener {
+
+    /**
+     * 20-05-13 sensorset2 부분 주석 해제 및 연동
+     **/
+
 
     public static int LIMITED_CONCURRENT_IMAGE_VISIBILITY_COUNT = 30;
 
@@ -46,7 +52,7 @@ public class SensorSet2 implements SensorEventListener {
     private TextView drawing_degree;
     private FrameLayout imageViewFrame;
     private ArrayList<ImageView> imageList;
-//    private ArrayList<FileNameInfo> fileNameInfoList;
+    private ArrayList<FileNameInfo> fileNameInfoList;
 
     private ArrayList<Integer> imageIndex;
 
@@ -55,10 +61,10 @@ public class SensorSet2 implements SensorEventListener {
         this.drawingActivity = acvitivy;
         mSensorManager = (SensorManager) acvitivy.getSystemService(Context.SENSOR_SERVICE);
         mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
-        drawing_degree = (TextView) acvitivy.findViewById(R.id.drawing_degree);
-        imageViewFrame = (FrameLayout) acvitivy.findViewById(R.id.imageViewFrame);
+        drawing_degree = acvitivy.findViewById(R.id.drawing_degree);
+        imageViewFrame = acvitivy.findViewById(R.id.imageViewFrame);
         imageList = new ArrayList<ImageView>();
-//        fileNameInfoList = new_pic ArrayList<FileNameInfo>();
+        fileNameInfoList =  new ArrayList<FileNameInfo>();
         imageIndex = new ArrayList<Integer>();
     }
 
@@ -86,22 +92,21 @@ public class SensorSet2 implements SensorEventListener {
             mRoll = (int) (fRoll+360) % 360;
 
 
-            //
             drawing_degree.setText("A : "+ mAzimuth+"("+getDirectionFromDegrees(fAzimuth)+")" +"\nP : "+mPitch);
 
             Log.d("sensorset", sensorCount + " / degree : "+mAzimuth + " / preAZ : " + fAzimuth+ "/ 방위 :" + getDirectionFromDegrees(fAzimuth));
-//            if(sensorCount %5 == 0 ){
-//                if(drawingActivity.getDownloadCheck()) {
-//                    try {
-//                        showDoodles();
-//                    }catch (Exception e){
-//                        Log.d("showdoodle", "burningtime "+e);
-//                    }
-//                }
-//                sensorCount = 0;
-//            }
+            if(sensorCount %5 == 0 ){
+                if(drawingActivity.getDownloadCheck()) {
+                    try {
+                        showDoodles();
+                    }catch (Exception e){
+                        Log.d("showdoodle", "burningtime "+e);
+                    }
+                }
+                sensorCount = 0;
+            }
             try{
-//                movingImage(imageList);
+                movingImage(imageList);
             }catch (Exception e){
                 Log.d("sensorcheck", "Moving error"+e);
             }
@@ -139,32 +144,32 @@ public class SensorSet2 implements SensorEventListener {
     public void onPause() {
         mSensorManager.unregisterListener(this);
         imageList.clear();
-//        fileNameInfoList.clear();
+        fileNameInfoList.clear();
     }
 //
-//    private void showDoodles(){
-//        int i = 0;
-//        for (FileNameInfo fileNameInfo : fileNameInfoList) {
-//            if (       ((Math.abs(fileNameInfo.fileAzimuth - mAzimuth) <= 10 || Math.abs(fileNameInfo.fileAzimuth - mAzimuth) >= 350))
-//                    && ((Math.abs(fileNameInfo.filePitch - mPitch) <= 10) || (Math.abs(fileNameInfo.filePitch - mPitch) >= 170))
-//                    && !fileNameInfo.visivility){
-//                limitImageList(LIMITED_CONCURRENT_IMAGE_VISIBILITY_COUNT, fileNameInfoList.get(i).filePath, i);
-//                fileNameInfo.visivility = true;
-//                Log.d("showdoodle", "createImageView : " + i);
-//                Log.d("showdoodle", "imageListSize : " + imageList.size());
-//            }
-//            else if(   (((Math.abs(fileNameInfo.fileAzimuth - mAzimuth) > 25)
-//                    && (Math.abs(fileNameInfo.fileAzimuth - mAzimuth) < 335))
-//                    || (Math.abs(fileNameInfo.filePitch - mPitch) > 25))
-//                    && fileNameInfo.visivility) {
-//                removeImageView(i);
-//                fileNameInfo.visivility = false;
-//                Log.d("showdoodle", "removeImageView : " + i);
-//                Log.d("showdoodle", "imageListSize : " + imageList.size());
-//            }
-//            i++;
-//        }
-//    }
+    private void showDoodles(){
+        int i = 0;
+        for (FileNameInfo fileNameInfo : fileNameInfoList) {
+            if (       ((Math.abs(fileNameInfo.fileAzimuth - mAzimuth) <= 10 || Math.abs(fileNameInfo.fileAzimuth - mAzimuth) >= 350))
+                    && ((Math.abs(fileNameInfo.filePitch - mPitch) <= 10) || (Math.abs(fileNameInfo.filePitch - mPitch) >= 170))
+                    && !fileNameInfo.visivility){
+                limitImageList(LIMITED_CONCURRENT_IMAGE_VISIBILITY_COUNT, fileNameInfoList.get(i).filePath, i);
+                fileNameInfo.visivility = true;
+                Log.d("showdoodle", "createImageView : " + i);
+                Log.d("showdoodle", "imageListSize : " + imageList.size());
+            }
+            else if(   (((Math.abs(fileNameInfo.fileAzimuth - mAzimuth) > 25)
+                    && (Math.abs(fileNameInfo.fileAzimuth - mAzimuth) < 335))
+                    || (Math.abs(fileNameInfo.filePitch - mPitch) > 25))
+                    && fileNameInfo.visivility) {
+                removeImageView(i);
+                fileNameInfo.visivility = false;
+                Log.d("showdoodle", "removeImageView : " + i);
+                Log.d("showdoodle", "imageListSize : " + imageList.size());
+            }
+            i++;
+        }
+    }
 
     public void createImageView(String filePath, int fileNum){
         try {
@@ -197,28 +202,28 @@ public class SensorSet2 implements SensorEventListener {
         }
     }
 //
-//    public void limitImageList(int limit, String filePath , int fileNum){
-//        if(imageIndex.size()>=limit){
-//            int j = 0;
-//            long temp = fileNameInfoList.get(fileNum).fileTime;
-//            int tempIndex = -1;
-//            for(int value : imageIndex){
-//                if(temp > fileNameInfoList.get(value).fileTime) {
-//                    temp = fileNameInfoList.get(value).fileTime;
-//                    tempIndex = j;
-//                }
-//                j++;
-//            }
-//            if(tempIndex >= 0){
-//                imageViewFrame.removeView(imageList.get(tempIndex));
-//                imageList.remove(tempIndex);
-//                imageIndex.remove(tempIndex);
-//                createImageView(filePath, fileNum);
-//            }
-//        }else {
-//            createImageView(filePath, fileNum);
-//        }
-//    }
+    public void limitImageList(int limit, String filePath , int fileNum){
+        if(imageIndex.size()>=limit){
+            int j = 0;
+            long temp = fileNameInfoList.get(fileNum).fileTime;
+            int tempIndex = -1;
+            for(int value : imageIndex){
+                if(temp > fileNameInfoList.get(value).fileTime) {
+                    temp = fileNameInfoList.get(value).fileTime;
+                    tempIndex = j;
+                }
+                j++;
+            }
+            if(tempIndex >= 0){
+                imageViewFrame.removeView(imageList.get(tempIndex));
+                imageList.remove(tempIndex);
+                imageIndex.remove(tempIndex);
+                createImageView(filePath, fileNum);
+            }
+        }else {
+            createImageView(filePath, fileNum);
+        }
+    }
 
     private int calculateInSampleSize(
             BitmapFactory.Options options, int reqWidth, int reqHeight) {
@@ -258,28 +263,28 @@ public class SensorSet2 implements SensorEventListener {
     }
 //
     //이미지뷰의 리스트를 움직이는 법
-//    private void movingImage(ArrayList<ImageView> imageList){
-//        int i = 0;
-//        for(ImageView imageView : imageList) {
-//            if (imageView.getVisibility() == View.VISIBLE) {
-//                int x = fileNameInfoList.get(imageIndex.get(i)).fileAzimuth;
-//                int y = fileNameInfoList.get(imageIndex.get(i)).filePitch;
-//                if(Math.abs(preX - mfAzimuth)>0.5 || Math.abs(preY - mfPitch)>0.5) {
-//                    if(x-mfAzimuth < -300 ){
-//                        imageView.setTranslationX((x-(mfAzimuth-360)) *20);
-//                    }else if(x-mfAzimuth > 300){
-//                        imageView.setTranslationX((x-(mfAzimuth+360)) *20);
-//                    } else {
-//                        imageView.setTranslationX((x - mfAzimuth) * 20);
-//                    }
-//                    imageView.setTranslationY((y - mfPitch) * 20);
-//                    imageView.invalidate();
-//                }
-//                Log.d("movingImage", i + " / x-mfAzimuth = " + (int)(x-mfAzimuth) + " / x : " + x+" / mfAzimuth : " +mfAzimuth);
-//            }
-//            i++;
-//        }
-//    }
+    private void movingImage(ArrayList<ImageView> imageList){
+        int i = 0;
+        for(ImageView imageView : imageList) {
+            if (imageView.getVisibility() == View.VISIBLE) {
+                int x = fileNameInfoList.get(imageIndex.get(i)).fileAzimuth;
+                int y = fileNameInfoList.get(imageIndex.get(i)).filePitch;
+                if(Math.abs(preX - mfAzimuth)>0.5 || Math.abs(preY - mfPitch)>0.5) {
+                    if(x-mfAzimuth < -300 ){
+                        imageView.setTranslationX((x-(mfAzimuth-360)) *20);
+                    }else if(x-mfAzimuth > 300){
+                        imageView.setTranslationX((x-(mfAzimuth+360)) *20);
+                    } else {
+                        imageView.setTranslationX((x - mfAzimuth) * 20);
+                    }
+                    imageView.setTranslationY((y - mfPitch) * 20);
+                    imageView.invalidate();
+                }
+                Log.d("movingImage", i + " / x-mfAzimuth = " + (int)(x-mfAzimuth) + " / x : " + x+" / mfAzimuth : " +mfAzimuth);
+            }
+            i++;
+        }
+    }
 
     public void makeValueFromFileName(String fileName, String filePath, boolean visibility){
         FileNameInfo fileNameInfo = new FileNameInfo();
@@ -289,6 +294,6 @@ public class SensorSet2 implements SensorEventListener {
         fileNameInfo.fileTime = Long.parseLong(value[2]);
         fileNameInfo.filePath = filePath;
         fileNameInfo.visivility = visibility;
-//        fileNameInfoList.add(fileNameInfo);
+        fileNameInfoList.add(fileNameInfo);
     }
 }
