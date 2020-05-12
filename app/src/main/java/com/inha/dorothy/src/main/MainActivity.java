@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApi;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -34,8 +35,7 @@ public class MainActivity extends BaseActivity {
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
 
-        TextView tvMainName;
-        tvMainName = findViewById(R.id.tv_main_name);
+        TextView tvMainName = findViewById(R.id.tv_main_name);
 
         tvMainName.setText(mUser.getDisplayName().concat(getString(R.string.main_tv_user_name_after)));
 
@@ -53,7 +53,6 @@ public class MainActivity extends BaseActivity {
                 })
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
-
     }
 
     //로그아웃
@@ -63,42 +62,34 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onConnected(@Nullable Bundle bundle) {
-
                 mAuth.signOut();
                 if (mGoogleApiClient.isConnected()) {
                     Auth.GoogleSignInApi.signOut(mGoogleApiClient);
                 }
             }
-
             @Override
             public void onConnectionSuspended(int i) {
-
             }
         });
     }
 
-    public void OnClick(View view){
-        switch (view.getId()){
+    //set OnClick
+    public void OnClick(View view) {
+        switch (view.getId()) {
             case R.id.tv_main_logout:   // 로그아웃
-
                 signOut();
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
                 finish();
-
                 break;
             case R.id.tv_main_enter:    // 방 입장
-
                 Intent intent1 = new Intent(getApplicationContext(), EntranceActivity.class);
                 startActivity(intent1);
-
                 break;
             case R.id.tv_main_mine:     // 내 그림
-
-
-
                 break;
         }
     }
+
 
 }

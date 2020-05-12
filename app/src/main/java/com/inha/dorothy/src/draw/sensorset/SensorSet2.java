@@ -32,7 +32,6 @@ public class SensorSet2 implements SensorEventListener {
     private float fRoll=0;
 
     private float[] orientation = new float[3];
-
     private float[] inRotationMatrix = new float[16];
     private float[] outRotationMatrix = new float[16];
     private DrawingActivity drawingActivity;
@@ -78,14 +77,16 @@ public class SensorSet2 implements SensorEventListener {
             fPitch = (float) Math.toDegrees( orientation[1] );
             fRoll = (float) Math.toDegrees( orientation[2] );
 
+
+            //방위각 고도 각도 계산
             mfAzimuth = (fAzimuth+360)%360;
             mfPitch = (fPitch+90)%180;
-
             mAzimuth = (int) (fAzimuth+360) % 360;
             mPitch = (int) (fPitch+90) % 180;
             mRoll = (int) (fRoll+360) % 360;
 
 
+            //
             drawing_degree.setText("A : "+ mAzimuth+"("+getDirectionFromDegrees(fAzimuth)+")" +"\nP : "+mPitch);
 
             Log.d("sensorset", sensorCount + " / degree : "+mAzimuth + " / preAZ : " + fAzimuth+ "/ 방위 :" + getDirectionFromDegrees(fAzimuth));
@@ -256,6 +257,7 @@ public class SensorSet2 implements SensorEventListener {
         return BitmapFactory.decodeFile(filePath, options);
     }
 //
+    //이미지뷰의 리스트를 움직이는 법
 //    private void movingImage(ArrayList<ImageView> imageList){
 //        int i = 0;
 //        for(ImageView imageView : imageList) {

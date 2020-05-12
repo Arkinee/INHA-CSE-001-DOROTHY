@@ -98,9 +98,11 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
 
 
         //sizes from dimensions
+
 //        smallBrush = getResources().getInteger(R.integer.small_size);
 //        mediumBrush = getResources().getInteger(R.integer.medium_size);
 //        largeBrush = getResources().getInteger(R.integer.large_size);
+
         smallBrush =10;
         mediumBrush = 20;
         largeBrush = 30;
@@ -141,7 +143,7 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
 //
 //                if (DownloadService.ACTION_COMPLETED.equals(intent.getAction())) {
 //
-//                    sensorSet2.makeValueFromFileName(intent.getStringExtra(DownloadService.EXTRA_FILE_NAME)
+//                    sensorSet2.makeValueFromFileName(intent.getStringExtra()
 //                            , intent.getStringExtra(DownloadService.EXTRA_DOWNLOAD_PATH), false);
 //                    doodleCount++;
 //                    progressDoodles.setText("Download : "+doodleCount+"\nTotal : "+storageSet.getUrls().size());

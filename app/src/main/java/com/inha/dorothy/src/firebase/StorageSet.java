@@ -147,6 +147,8 @@ public class StorageSet {
         final String createdTime = DateFormat.getDateTimeInstance().format(date);
         String rawTime = "" + date.getTime();
         final String fileName = azimuth+","+pitch+","+rawTime;
+
+
         final StorageReference doodleRef = storageRef.child(roomTitle).child(direction).child(userID)
                 .child(fileName);
         final StorageReference thumnailRef = storageRef.child(roomTitle).child(direction).child(userID)
