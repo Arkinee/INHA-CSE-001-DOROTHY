@@ -4,6 +4,7 @@ import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @IgnoreExtraProperties
@@ -12,7 +13,7 @@ public class RoomInfo {
     public String title;
     public String password;
     public Long person;
-    public Long doodle;
+    public Long doodles;
 
     public RoomInfo(){
 
@@ -22,7 +23,7 @@ public class RoomInfo {
         this.title = title;
         this.password = password;
         this.person = person;
-        this.doodle = doodle;
+        this.doodles = doodles;
     }
 
     @Exclude
@@ -31,7 +32,7 @@ public class RoomInfo {
         result.put("title", title);
         result.put("password", password);
         result.put("person", person);
-        result.put("doodle", doodle);
+        result.put("doodle", doodles);
         return result;
     }
 

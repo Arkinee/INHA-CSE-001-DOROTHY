@@ -20,6 +20,7 @@ import com.inha.dorothy.BaseActivity;
 import com.inha.dorothy.R;
 import com.inha.dorothy.src.entrance.EntranceActivity;
 import com.inha.dorothy.src.login.LoginActivity;
+import com.inha.dorothy.src.mydraw.MyDrawActivity;
 
 public class MainActivity extends BaseActivity {
 
@@ -87,6 +88,8 @@ public class MainActivity extends BaseActivity {
                 startActivity(intent1);
                 break;
             case R.id.tv_main_mine:     // 내 그림
+                Intent intent2 = new Intent(getApplicationContext(), MyDrawActivity.class);
+                startActivity(intent2);
                 break;
         }
     }

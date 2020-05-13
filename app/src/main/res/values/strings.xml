@@ -36,6 +36,9 @@
     <string name="create_room_title_input">방 제목을 입력해 주세요!</string>
     <string name="create_room_password_input">비밀번호를 입력해 주세요!</string>
 
+    <!-- My Draw -->
+    <string name="my_draw_tv_how_draw_tool">4 photos</string>
+
     <!-- Brush -->
     <string name="start_new">New</string>
     <string name="brush">Brush</string>

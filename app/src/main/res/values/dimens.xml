@@ -38,5 +38,5 @@
   limitations under the License.
 -->
     <dimen name="image_thumbnail_size">100dp</dimen>
-    <dimen name="image_thumbnail_spacing">1dp</dimen>
+    <dimen name="image_thumbnail_spacing">5dp</dimen>
 </resources>

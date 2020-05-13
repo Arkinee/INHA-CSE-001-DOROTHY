@@ -22,6 +22,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+
         <activity android:name=".src.main.MainActivity" />
         <activity android:name=".BaseActivity" />
         <activity android:name=".src.splash.SplashActivity" >
@@ -35,6 +36,9 @@
         <activity android:name=".src.entrance.EntranceActivity" />
         <activity android:name=".src.entrance.CreateActivity" />
         <activity android:name=".src.draw.DrawingActivity" />
+        <activity android:name=".src.mydraw.MyDrawActivity" >
+        </activity>
+
         <service
             android:name=".src.firebase.DownloadService"
             android:exported="false"/>

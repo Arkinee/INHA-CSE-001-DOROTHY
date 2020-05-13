@@ -112,8 +112,7 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
         sensorSet2 = new SensorSet2(this);
 
 
-//다운로드Receiver
-
+        //다운로드Receiver
         mDownloadReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {

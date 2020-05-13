@@ -160,7 +160,6 @@ public class EntranceActivity extends BaseActivity implements PopupMenu.OnMenuIt
 
             /**NOTICE 삭제 수정이 반복되면 mRoomArrayList.size가 중복되어 생성될 가능성이 있음
             따라서 mRoomReference.push().getKey() 를 통해 room_id 하위 child 값으로 들어가는 고유 키값을 생성**/
-//            childUpdates.put("/room/room_id/" + mRoomArrayList.size() + "/RoomInfo", postValues);
 
             mRoomUniqueKey= mRoomReference.child("room_id").push().getKey();
             childUpdates.put("/room/room_id/" + mRoomUniqueKey + "/RoomInfo", postValues);
