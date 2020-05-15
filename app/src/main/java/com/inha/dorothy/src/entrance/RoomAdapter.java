@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,10 +15,11 @@ import com.inha.dorothy.R;
 
 import java.util.ArrayList;
 
-public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
+public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> implements Filterable {
 
     private Context mContext;
     private ArrayList<Room> mRoomList;
+    private ArrayList<Room> mFilterList;
 
     public interface OnItemClickListener {
         void onItemClick(View v, int pos);
@@ -31,6 +34,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
     public RoomAdapter(Context context, ArrayList<Room> roomList) {
         this.mContext = context;
         this.mRoomList = roomList;
+        this.mFilterList = roomList;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -73,14 +77,48 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Room roomItem = mRoomList.get(position);
+        Room roomItem = mFilterList.get(position);
         holder.tvRoomTitle.setText(roomItem.info.title);
         holder.tvRoomPerson.setText(String.valueOf(roomItem.info.person).concat(mContext.getString(R.string.entrance_person_limit)));
     }
 
     @Override
     public int getItemCount() {
-        return mRoomList.size();
+        return mFilterList.size();
+    }
+
+    @Override
+    public Filter getFilter() {
+
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                String charString = constraint.toString();
+
+                if(charString.isEmpty()){
+                    mFilterList = mRoomList;
+                }else{
+                    ArrayList<Room> filtered = new ArrayList<>();
+                    for(Room room : mFilterList){
+                        if(room.info.title.contains(charString)){
+                            filtered.add(room);
+                        }
+                    }
+                    mFilterList = filtered;
+                }
+
+                FilterResults results = new FilterResults();
+                results.values = mFilterList;
+
+                return results;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                mFilterList = (ArrayList<Room>) results.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
 

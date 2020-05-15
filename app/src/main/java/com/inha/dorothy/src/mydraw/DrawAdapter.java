@@ -39,11 +39,13 @@ public class DrawAdapter extends RecyclerView.Adapter<DrawAdapter.ViewHolder> {
     class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView ivMyDraw;
+        ImageView ivCheck;
 
         ViewHolder(final View itemView) {
             super(itemView);
             // 뷰 객체에 대한 참조. (hold strong reference)
             ivMyDraw = itemView.findViewById(R.id.iv_item_my_draw);
+            ivCheck = itemView.findViewById(R.id.iv_item_my_draw_check);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -76,6 +78,13 @@ public class DrawAdapter extends RecyclerView.Adapter<DrawAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         MyDraw draw = mDrawsList.get(position);
         Glide.with(mContext).load(draw.info.url).centerCrop().placeholder(R.drawable.ic_loading).into(holder.ivMyDraw);
+
+        if(draw.isCheck){
+            holder.ivCheck.setVisibility(View.VISIBLE);
+        }else{
+            holder.ivCheck.setVisibility(View.GONE);
+        }
+
     }
 
     @Override

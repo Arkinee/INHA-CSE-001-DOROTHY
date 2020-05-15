@@ -38,6 +38,9 @@
 
     <!-- My Draw -->
     <string name="my_draw_tv_how_draw_tool">4 photos</string>
+    <string name="my_draw_menu_remove">삭제하기</string>
+    <string name="my_draw_menu_remove_all">일괄삭제</string>
+    <string name="my_draw_tv_check_remove">삭제할 그림을 선택해 주세요.</string>
 
     <!-- Brush -->
     <string name="start_new">New</string>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:background="@drawable/src_entrance_stroke">
@@ -12,4 +12,13 @@
        android:scaleType="fitXY"
        />
 
-</LinearLayout>
+   <ImageView
+       android:id="@+id/iv_item_my_draw_check"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:src="@drawable/ic_check"
+       android:scaleType="fitXY"
+       android:visibility="gone"
+      />
+
+</RelativeLayout>

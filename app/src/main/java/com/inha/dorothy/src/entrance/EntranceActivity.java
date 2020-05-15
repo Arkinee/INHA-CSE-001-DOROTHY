@@ -50,6 +50,7 @@ public class EntranceActivity extends BaseActivity implements PopupMenu.OnMenuIt
     private RecyclerView mRvRoom;
     private RoomAdapter mAdapter;
     private ArrayList<Room> mRoomArrayList;
+    private ArrayList<Room> mFilterList;
     private EditText mEdtEntrance;
     private String mRoomUniqueKey;
 
@@ -59,6 +60,8 @@ public class EntranceActivity extends BaseActivity implements PopupMenu.OnMenuIt
         setContentView(R.layout.activity_entrance);
 
         mRoomArrayList = new ArrayList<>();
+        mFilterList = new ArrayList<>();
+
         mEdtEntrance = findViewById(R.id.edt_entrance_search);
         mEdtEntrance.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,7 +176,9 @@ public class EntranceActivity extends BaseActivity implements PopupMenu.OnMenuIt
                 finish();
                 break;
             case R.id.iv_entrance_search:
-
+                if(mAdapter != null){
+                    mAdapter.getFilter().filter(mEdtEntrance.getText().toString());
+                }
                 break;
             case R.id.iv_entrance_menu:
                 PopupMenu popupMenu = new PopupMenu(this, view);

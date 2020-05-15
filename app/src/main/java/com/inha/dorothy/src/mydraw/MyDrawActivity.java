@@ -2,7 +2,10 @@ package com.inha.dorothy.src.mydraw;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,7 +29,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class MyDrawActivity extends BaseActivity {
+public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItemClickListener{
 
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseUser mUser = mAuth.getCurrentUser();
@@ -39,7 +42,10 @@ public class MyDrawActivity extends BaseActivity {
     private DrawAdapter mAdapter;
 
     private TextView mTvNumOfDraw;
+    private TextView mTvCheckRemove;
     private String mTitle;
+
+    private boolean mRemove;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +59,12 @@ public class MyDrawActivity extends BaseActivity {
                 getResources().getInteger(R.integer.draw_list_columns)));
 
         mTvNumOfDraw = findViewById(R.id.tv_my_draw_number);
+        mTvCheckRemove = findViewById(R.id.tv_my_draw_remove);
+
         mDrawArrayList = new ArrayList<>();
         mRoomList = new ArrayList<>();
+        mRemove = false;
+
         mAdapter = new DrawAdapter(this, mDrawArrayList);
         rvMyDraw.setAdapter(mAdapter);
 
@@ -64,7 +74,17 @@ public class MyDrawActivity extends BaseActivity {
         mAdapter.setOnItemClickListener(new DrawAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int pos) {
-                showCustomMessage(mDrawArrayList.get(pos).room);
+                if(!mRemove){
+                    showCustomMessage(mDrawArrayList.get(pos).room);
+                }else{
+                    if(!mDrawArrayList.get(pos).isCheck) {
+                        mDrawArrayList.get(pos).isCheck = true;
+                        mAdapter.notifyDataSetChanged();
+                    }else{
+                        mDrawArrayList.get(pos).isCheck = false;
+                        mAdapter.notifyDataSetChanged();
+                    }
+                }
             }
         });
 
@@ -150,9 +170,39 @@ public class MyDrawActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.iv_my_draw_menu:
+                PopupMenu popupMenu = new PopupMenu(this, view);
+                popupMenu.setOnMenuItemClickListener(this);
+                MenuInflater inflater = popupMenu.getMenuInflater();
+                inflater.inflate(R.menu.my_draw_menu, popupMenu.getMenu());
+                popupMenu.show();
                 break;
         }
 
     }
 
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.remove:
+                if(!mRemove) {
+                    mRemove = true;
+                    mTvCheckRemove.setText(getString(R.string.my_draw_tv_check_remove));
+                }else{
+                    mRemove = false;
+                    mTvCheckRemove.setText("");
+                    //체크된 것 삭제 기능 넣기
+
+                    for(MyDraw draw : mDrawArrayList){
+                        draw.isCheck = false;
+                    }
+                    mAdapter.notifyDataSetChanged();
+                }
+                return true;
+            case R.id.remove_all:
+                showCustomMessage("방 삭제");
+                return true;
+            default:
+                return false;
+        }
+    }
 }

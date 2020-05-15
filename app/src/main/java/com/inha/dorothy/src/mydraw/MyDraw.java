@@ -5,6 +5,7 @@ public class MyDraw {
     public String id;
     public String room;
     public DrawInfo info;
+    public Boolean isCheck;
 
     public MyDraw(){
 
@@ -14,6 +15,7 @@ public class MyDraw {
         this.id = id;
         this.room = room;
         this.info = info;
+        this.isCheck = false;
     }
 
 }
