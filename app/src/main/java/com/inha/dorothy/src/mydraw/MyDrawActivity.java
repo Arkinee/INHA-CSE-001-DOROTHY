@@ -1,5 +1,7 @@
 package com.inha.dorothy.src.mydraw;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuInflater;
@@ -12,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -19,6 +22,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
 import com.inha.dorothy.BaseActivity;
 import com.inha.dorothy.ItemDecoration;
 import com.inha.dorothy.R;
@@ -27,7 +31,9 @@ import com.inha.dorothy.src.entrance.RoomInfo;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItemClickListener{
 
@@ -36,6 +42,7 @@ public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItem
     private FirebaseDatabase mFirebase = FirebaseDatabase.getInstance();
     private DatabaseReference mRef = mFirebase.getReference();
     private DatabaseReference mRoomTitle = mFirebase.getReference("room").child("room_id");
+    private FirebaseStorage mStorage = FirebaseStorage.getInstance();
 
     private ArrayList<MyDraw> mDrawArrayList;
     private ArrayList<DrawPerRoom> mRoomList;
@@ -46,6 +53,7 @@ public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItem
     private String mTitle;
 
     private boolean mRemove;
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +72,7 @@ public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItem
         mDrawArrayList = new ArrayList<>();
         mRoomList = new ArrayList<>();
         mRemove = false;
+        mContext = this;
 
         mAdapter = new DrawAdapter(this, mDrawArrayList);
         rvMyDraw.setAdapter(mAdapter);
@@ -75,7 +84,10 @@ public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItem
             @Override
             public void onItemClick(View v, int pos) {
                 if(!mRemove){
-                    showCustomMessage(mDrawArrayList.get(pos).room);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                    builder.setTitle(getString(R.string.my_draw_dialog_title)).setMessage(mDrawArrayList.get(pos).room);
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
                 }else{
                     if(!mDrawArrayList.get(pos).isCheck) {
                         mDrawArrayList.get(pos).isCheck = true;
@@ -150,20 +162,6 @@ public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItem
         });
     }
 
-    public String compare(String id){
-        String result = "";
-        for(int i=0; i < mRoomList.size(); i++){
-            for(int j=0; j<mRoomList.get(i).ids.size(); j++){
-                if(id.equals(mRoomList.get(i).ids.get(j))){
-                    result = mRoomList.get(i).title;
-                    return result;
-                }
-            }
-        }
-
-        return result;
-    }
-
     public void OnClick(View view) {
         switch (view.getId()){
             case R.id.iv_my_draw_back_arrow:
@@ -190,11 +188,10 @@ public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItem
                 }else{
                     mRemove = false;
                     mTvCheckRemove.setText("");
-                    //체크된 것 삭제 기능 넣기
 
-                    for(MyDraw draw : mDrawArrayList){
-                        draw.isCheck = false;
-                    }
+                    //체크된 것 삭제 기능
+                    removeDraw();
+
                     mAdapter.notifyDataSetChanged();
                 }
                 return true;
@@ -205,4 +202,64 @@ public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItem
                 return false;
         }
     }
+
+    public void removeDraw(){
+
+        for(MyDraw draw : mDrawArrayList){
+
+            if(draw.isCheck){
+                Log.d("로그", "id: " + draw.id);
+                String room = searchRoom(draw.id);
+
+                mStorage.getReference().child(room).child(draw.info.direction).child(mUser.getUid()).child(draw.info.fileName).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("로그", "이미지 삭제 완료");
+                    }
+                });
+
+                mStorage.getReference().child(room).child(draw.info.direction).child(mUser.getUid()).child(draw.info.fileName.concat("(thumnail)")).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("로그", "썸네일 삭제 완료");
+                    }
+                });
+
+                DatabaseReference mRoomRemove = mFirebase.getReference().child("room").child("room_id").child(room).child("RoomInfo").child("downloadURL").child(draw.id);
+                mRoomRemove.removeValue();
+
+                DatabaseReference mRemoveRef = mFirebase.getReference().child("user").child(mUser.getUid()).child("downloadURL").child(draw.id);
+                mRemoveRef.removeValue();
+            }
+        }
+    }
+
+    public String compare(String id){
+        String result = "";
+        for(int i=0; i < mRoomList.size(); i++){
+            for(int j=0; j<mRoomList.get(i).ids.size(); j++){
+                if(id.equals(mRoomList.get(i).ids.get(j))){
+                    result = mRoomList.get(i).title;
+                    return result;
+                }
+            }
+        }
+
+        return result;
+    }
+
+    public String searchRoom(String id){
+        String result = "";
+
+        for(int i=0; i<mRoomList.size(); i++){
+            for(int j=0; j< mRoomList.get(i).ids.size(); j++){
+                if(mRoomList.get(i).ids.get(j).equals(id)){
+                    return mRoomList.get(i).room_id;
+                }
+            }
+        }
+
+        return result;
+    }
+
 }

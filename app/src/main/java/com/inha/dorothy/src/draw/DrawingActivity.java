@@ -146,7 +146,6 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void onStart() {
         super.onStart();
-//
         // Register download receiver
         LocalBroadcastManager.getInstance(this)
                 .registerReceiver(mDownloadReceiver, DownloadService.getIntentFilter());
@@ -231,7 +230,7 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
     }
 
 
-    //2번 누르면 뒤로가기 Custom
+    //2초 안에 2번 누르면 뒤로가기 Custom
     @Override
     public void onBackPressed() {
         long curTime = System.currentTimeMillis();
