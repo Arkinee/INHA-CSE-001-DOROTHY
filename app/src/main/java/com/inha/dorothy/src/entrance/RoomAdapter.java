@@ -87,6 +87,10 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> im
         return mFilterList.size();
     }
 
+    public Room getItem(int position){
+        return mFilterList.get(position);
+    }
+
     @Override
     public Filter getFilter() {
 

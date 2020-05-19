@@ -105,8 +105,9 @@ public class EntranceActivity extends BaseActivity implements PopupMenu.OnMenuIt
         mAdapter.setOnItemClickListener(new RoomAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int pos) {
+                Room room = mAdapter.getItem(pos);
                 Intent intent = new Intent(getApplicationContext(), DrawingActivity.class);
-                intent.putExtra("room_id", mRoomArrayList.get(pos).id);
+                intent.putExtra("room_id", room.id);
                 startActivity(intent);
             }
         });
