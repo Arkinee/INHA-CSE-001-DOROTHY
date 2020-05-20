@@ -26,12 +26,18 @@ import androidx.annotation.RequiresApi;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.inha.dorothy.BaseActivity;
 import com.inha.dorothy.R;
 import com.inha.dorothy.src.draw.cameraset.Camera2Preview;
 import com.inha.dorothy.src.draw.sensorset.SensorSet2;
 import com.inha.dorothy.src.draw.view.AutoFitTextureView;
 import com.inha.dorothy.src.draw.view.DrawingView;
+import com.inha.dorothy.src.entrance.RoomInfo;
 import com.inha.dorothy.src.firebase.DownloadService;
 import com.inha.dorothy.src.firebase.StorageSet;
 
@@ -45,6 +51,9 @@ import petrov.kristiyan.colorpicker.ColorPicker;
 
 public class DrawingActivity extends BaseActivity implements View.OnClickListener {
     static String TAG = "DrawingAcitivty";
+
+    //
+    private FirebaseDatabase mFirebase = FirebaseDatabase.getInstance();
 
     //custom drawing view
     private DrawingView drawView;
@@ -74,6 +83,8 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
 
     //방의 firebase key값(room_id)
     private String roomId;
+    //방 현재 인원
+    private Long mPerson;
     //뒤로가기 입력 시간 저장 변수
     private long backBtnTime = 0;
 
@@ -95,6 +106,7 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
         progressDoodles = findViewById(R.id.progress_doodles);
 
         roomId = getIntent().getStringExtra("room_id");
+        mPerson = 0L;
         storageSet = new StorageSet(this, roomId);
 
 
@@ -149,6 +161,26 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
         // Register download receiver
         LocalBroadcastManager.getInstance(this)
                 .registerReceiver(mDownloadReceiver, DownloadService.getIntentFilter());
+
+        DatabaseReference reference = mFirebase.getReference().child("room").child("room_id").child(roomId).child("RoomInfo");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                RoomInfo info = dataSnapshot.getValue(RoomInfo.class);
+                mPerson = info.person;
+                Log.d("로그", "person: " + info.person);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        DatabaseReference ref = mFirebase.getReference().child("room").child("room_id").child(roomId).child("RoomInfo").child("person");
+        ref.setValue(mPerson + 1);
+
+
     }
 
     @Override
@@ -157,6 +189,24 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mDownloadReceiver);
         Log.d(TAG, "Cachedir : "+getCacheDir());
         getCacheDir().deleteOnExit();
+
+        DatabaseReference reference = mFirebase.getReference().child("room").child("room_id").child(roomId).child("RoomInfo");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                RoomInfo info = dataSnapshot.getValue(RoomInfo.class);
+                mPerson = info.person;
+                Log.d("로그", "person: " + info.person);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        DatabaseReference ref = mFirebase.getReference().child("room").child("room_id").child(roomId).child("RoomInfo").child("person");
+        ref.setValue(mPerson - 1);
 
     }
 

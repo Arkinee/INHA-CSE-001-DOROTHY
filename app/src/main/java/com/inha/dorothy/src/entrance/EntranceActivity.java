@@ -2,13 +2,9 @@ package com.inha.dorothy.src.entrance;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.ContextMenu;
-import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -18,8 +14,6 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,13 +23,9 @@ import com.inha.dorothy.BaseActivity;
 import com.inha.dorothy.R;
 import com.inha.dorothy.src.draw.DrawingActivity;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 public class EntranceActivity extends BaseActivity implements PopupMenu.OnMenuItemClickListener {
