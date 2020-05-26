@@ -136,7 +136,7 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
                     sensorSet2.makeValueFromFileName(Objects.requireNonNull(intent.getStringExtra(DownloadService.EXTRA_FILE_NAME))
                             , intent.getStringExtra(DownloadService.EXTRA_DOWNLOAD_PATH), false);
                     doodleCount++;
-                    progressDoodles.setText("Download : "+doodleCount+"\nTotal : "+storageSet.getmUrls().size());
+                    progressDoodles.setText("Download : "+doodleCount+"\nTotal : "+storageSet.getmUrls().size()+"\nPerson : "+mPerson+" / 30");
 
 
                     downloadCheck = true;
