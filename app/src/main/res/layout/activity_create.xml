@@ -15,7 +15,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:contentDescription="@string/entrance_content_description"
-            android:onClick="onClick"
+            android:onClick="OnClick"
             android:padding="10dp"
             android:src="@drawable/ic_arrow_back" />
 
