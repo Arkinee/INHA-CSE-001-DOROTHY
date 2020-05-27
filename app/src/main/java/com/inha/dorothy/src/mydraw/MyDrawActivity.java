@@ -2,6 +2,7 @@ package com.inha.dorothy.src.mydraw;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuInflater;
@@ -42,10 +43,12 @@ public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItem
     private FirebaseDatabase mFirebase = FirebaseDatabase.getInstance();
     private DatabaseReference mRef = mFirebase.getReference();
     private DatabaseReference mRoomTitle = mFirebase.getReference("room").child("room_id");
+    private DatabaseReference mDoodleRef = mRef.child("user").child(mUser.getUid());
     private FirebaseStorage mStorage = FirebaseStorage.getInstance();
 
     private ArrayList<MyDraw> mDrawArrayList;
     private ArrayList<DrawPerRoom> mRoomList;
+    private ArrayList<String> mDoodleList;
     private DrawAdapter mAdapter;
 
     private TextView mTvNumOfDraw;
@@ -54,6 +57,7 @@ public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItem
 
     private boolean mRemove;
     private Context mContext;
+    private Long mCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +75,10 @@ public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItem
 
         mDrawArrayList = new ArrayList<>();
         mRoomList = new ArrayList<>();
+        mDoodleList = new ArrayList<>();
         mRemove = false;
         mContext = this;
+        mCount = 0L;
 
         mAdapter = new DrawAdapter(this, mDrawArrayList);
         rvMyDraw.setAdapter(mAdapter);
@@ -100,6 +106,27 @@ public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItem
             }
         });
 
+        // 사용자가 그림을 지우면 사용자가 그린 그림의 개수 동기화
+        mDoodleRef.child("downloadURL").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mDoodleList.clear();
+
+                if(dataSnapshot.hasChildren()){
+                    Iterator<DataSnapshot> iter = dataSnapshot.getChildren().iterator();
+                    while (iter.hasNext()){
+                        DataSnapshot snap = iter.next();
+                        String doodle = snap.getKey();
+                        mDoodleList.add(doodle);
+                    }
+                }
+                mDoodleRef.child("doodles").setValue(mDoodleList.size());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
     }
 
     void accessDatabase() {
@@ -107,6 +134,7 @@ public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItem
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mRoomList.clear();
+
                 if (dataSnapshot.hasChildren()) {
                     Iterator<DataSnapshot> iter = dataSnapshot.getChildren().iterator();
                     while (iter.hasNext()) {
@@ -196,7 +224,24 @@ public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItem
                 }
                 return true;
             case R.id.remove_all:
-                showCustomMessage("방 삭제");
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                builder.setTitle(getString(R.string.my_draw_menu_remove_all)).setMessage(R.string.my_draw_dialog_remove_all_content);
+                builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        for(MyDraw draw : mDrawArrayList){
+                            draw.isCheck = true;
+                        }
+
+                        removeDraw();
+                    }
+                }).setNegativeButton("아니요", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                    }
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
                 return true;
             default:
                 return false;
@@ -205,11 +250,18 @@ public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItem
 
     public void removeDraw(){
 
+        int cnt = 0;
         for(MyDraw draw : mDrawArrayList){
 
             if(draw.isCheck){
-                Log.d("로그", "id: " + draw.id);
+                cnt += 1;
                 String room = searchRoom(draw.id);
+
+                DatabaseReference mRoomRemove = mFirebase.getReference().child("room").child("room_id").child(room).child("RoomInfo").child("downloadURL").child(draw.id);
+                mRoomRemove.removeValue();
+
+                DatabaseReference mRemoveRef = mFirebase.getReference().child("user").child(mUser.getUid()).child("downloadURL").child(draw.id);
+                mRemoveRef.removeValue();
 
                 mStorage.getReference().child(room).child(draw.info.direction).child(mUser.getUid()).child(draw.info.fileName).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -225,13 +277,26 @@ public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItem
                     }
                 });
 
-                DatabaseReference mRoomRemove = mFirebase.getReference().child("room").child("room_id").child(room).child("RoomInfo").child("downloadURL").child(draw.id);
-                mRoomRemove.removeValue();
-
-                DatabaseReference mRemoveRef = mFirebase.getReference().child("user").child(mUser.getUid()).child("downloadURL").child(draw.id);
-                mRemoveRef.removeValue();
+                updateRoomDoodleCount(room);
             }
         }
+
+        // 모든 방에 있는 총 그림 개수의 합 동기화
+        final int count = cnt;
+        final DatabaseReference totalRef = mFirebase.getReference().child("totaldoodles");
+        totalRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Long total = dataSnapshot.getValue(Long.class);
+                totalRef.setValue(total - count);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     public String compare(String id){
@@ -260,6 +325,34 @@ public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItem
         }
 
         return result;
+    }
+
+    public void updateRoomDoodleCount(String room_id){
+
+        final ArrayList<String> roomDoodleList = new ArrayList<>();
+
+        // 사용자가 그림을 지우면 사용자가 그린 그림의 개수 동기화
+        final DatabaseReference roomDoodleRef = mFirebase.getReference().child("room").child("room_id").child(room_id).child("RoomInfo");
+        roomDoodleRef.child("downloadURL").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if(dataSnapshot.hasChildren()){
+                    Iterator<DataSnapshot> iter = dataSnapshot.getChildren().iterator();
+                    while (iter.hasNext()){
+                        DataSnapshot snap = iter.next();
+                        String doodle = snap.getKey();
+                        roomDoodleList.add(doodle);
+                    }
+                }
+                roomDoodleRef.child("doodles").setValue(roomDoodleList.size());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
     }
 
 }
