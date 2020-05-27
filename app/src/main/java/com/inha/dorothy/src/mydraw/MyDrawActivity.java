@@ -57,13 +57,13 @@ public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItem
 
     private boolean mRemove;
     private Context mContext;
-    private Long mCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_draw);
 
+        //사용할 컴포넌트들 초기화
         RecyclerView rvMyDraw = findViewById(R.id.rv_my_draw);
         rvMyDraw.setLayoutManager(new GridLayoutManager(getApplicationContext(), 3));
         rvMyDraw.addItemDecoration(new ItemDecoration(
@@ -78,23 +78,25 @@ public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItem
         mDoodleList = new ArrayList<>();
         mRemove = false;
         mContext = this;
-        mCount = 0L;
 
         mAdapter = new DrawAdapter(this, mDrawArrayList);
         rvMyDraw.setAdapter(mAdapter);
 
+        //데이터베이스에 접근해 각 방과 로그인된 유저의 정보 가져오기
         accessDatabase();
 
         //그림 클릭 이벤트
         mAdapter.setOnItemClickListener(new DrawAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int pos) {
-                if(!mRemove){
+                if(!mRemove){   // '삭제하기' 중이 아닌 경우
+                    // 선택한 그림이 포함된 방의 위치를 다이얼로그 형태로 보여줌
                     AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                     builder.setTitle(getString(R.string.my_draw_dialog_title)).setMessage(mDrawArrayList.get(pos).room);
                     AlertDialog alertDialog = builder.create();
                     alertDialog.show();
                 }else{
+                    // '삭제하기' 중인 경우 선택된 상태에 따라 선택, 선택안됨으로 update시켜줌
                     if(!mDrawArrayList.get(pos).isCheck) {
                         mDrawArrayList.get(pos).isCheck = true;
                         mAdapter.notifyDataSetChanged();
@@ -130,6 +132,7 @@ public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItem
     }
 
     void accessDatabase() {
+        // 방마다 가지고 있는 그림의 정보를 매칭해서 ArrayList에 저장
         mRoomTitle.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -147,12 +150,11 @@ public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItem
                             while (iter2.hasNext()){
                                 DataSnapshot snap2 = iter2.next();
                                 ids.add(snap2.getKey());
-                                Log.d("로그", "추가: " + snap2.getKey());
+                                //Log.d("로그", "추가: " + snap2.getKey());
                             }
                         }
 
                         mRoomList.add(new DrawPerRoom(snap.getKey(), info.title, ids));
-                        Log.d("로그", "리스트에 추가: " + snap.getKey());
                     }
                 }
             }
@@ -163,6 +165,7 @@ public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItem
             }
         });
 
+        // 로그인된 유저가 그렸던 그림들의 리스트를 가져와 저장 후 보여줌
         mRef.child("user").child(mUser.getUid()).child("downloadURL").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -192,10 +195,10 @@ public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItem
 
     public void OnClick(View view) {
         switch (view.getId()){
-            case R.id.iv_my_draw_back_arrow:
+            case R.id.iv_my_draw_back_arrow:    // 뒤로가기 이미지 클릭 시 행동
                 finish();
                 break;
-            case R.id.iv_my_draw_menu:
+            case R.id.iv_my_draw_menu:          // 메뉴 이미지 클릭 시 행동
                 PopupMenu popupMenu = new PopupMenu(this, view);
                 popupMenu.setOnMenuItemClickListener(this);
                 MenuInflater inflater = popupMenu.getMenuInflater();
@@ -209,7 +212,7 @@ public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItem
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.remove:
+            case R.id.remove:   // 삭제하기 메뉴
                 if(!mRemove) {
                     mRemove = true;
                     mTvCheckRemove.setText(getString(R.string.my_draw_tv_check_remove));
@@ -223,7 +226,7 @@ public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItem
                     mAdapter.notifyDataSetChanged();
                 }
                 return true;
-            case R.id.remove_all:
+            case R.id.remove_all:   // 일괄삭제 메뉴
                 AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                 builder.setTitle(getString(R.string.my_draw_menu_remove_all)).setMessage(R.string.my_draw_dialog_remove_all_content);
                 builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
@@ -248,21 +251,25 @@ public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItem
         }
     }
 
+    // 그림을 지우는 함수
     public void removeDraw(){
 
-        int cnt = 0;
+        int cnt = 0;    // 지워진 그림의 개수
         for(MyDraw draw : mDrawArrayList){
 
             if(draw.isCheck){
                 cnt += 1;
                 String room = searchRoom(draw.id);
 
+                // 방에서 선택된 그림의 정보 지우기
                 DatabaseReference mRoomRemove = mFirebase.getReference().child("room").child("room_id").child(room).child("RoomInfo").child("downloadURL").child(draw.id);
                 mRoomRemove.removeValue();
 
+                // 유저 정보에서 선택된 그림의 정보 지우기
                 DatabaseReference mRemoveRef = mFirebase.getReference().child("user").child(mUser.getUid()).child("downloadURL").child(draw.id);
                 mRemoveRef.removeValue();
 
+                // 파이어베이스 스토리지에 저장된 그림 삭제
                 mStorage.getReference().child(room).child(draw.info.direction).child(mUser.getUid()).child(draw.info.fileName).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -270,6 +277,7 @@ public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItem
                     }
                 });
 
+                // 파이어베이스 스토리지에 저장된 썸네일 그림 삭제
                 mStorage.getReference().child(room).child(draw.info.direction).child(mUser.getUid()).child(draw.info.fileName.concat("(thumnail)")).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -277,6 +285,7 @@ public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItem
                     }
                 });
 
+                // 그림이 있는 방 그림 개수 동기화
                 updateRoomDoodleCount(room);
             }
         }
@@ -299,6 +308,7 @@ public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItem
 
     }
 
+    // 해당 아이디를 가진 방의 이름 리턴
     public String compare(String id){
         String result = "";
         for(int i=0; i < mRoomList.size(); i++){
@@ -313,6 +323,7 @@ public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItem
         return result;
     }
 
+    // 해당 아이디를 가진 방 리턴
     public String searchRoom(String id){
         String result = "";
 
@@ -327,11 +338,10 @@ public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItem
         return result;
     }
 
+    // 사용자가 그림을 지우면 사용자가 그린 그림의 개수 동기화
     public void updateRoomDoodleCount(String room_id){
 
         final ArrayList<String> roomDoodleList = new ArrayList<>();
-
-        // 사용자가 그림을 지우면 사용자가 그린 그림의 개수 동기화
         final DatabaseReference roomDoodleRef = mFirebase.getReference().child("room").child("room_id").child(room_id).child("RoomInfo");
         roomDoodleRef.child("downloadURL").addValueEventListener(new ValueEventListener() {
             @Override
