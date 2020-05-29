@@ -10,7 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ee789850-93d0-4ad4-8b49-c88db8c7f98e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_create.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_create.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/inha/dorothy/src/draw/models/RoomDoodleInfo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_drawing.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_drawing.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,7 +23,7 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="ce04160482a9281303" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="S10_API_29" />
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
@@ -91,10 +93,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/inha/dorothy/src/draw/DrawingActivity.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/inha/dorothy/src/draw/sensorset/SensorSet2.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="355">
-              <caret line="199" column="13" selection-start-line="199" selection-start-column="13" selection-end-line="199" selection-end-column="13" />
+            <state relative-caret-position="1197">
+              <caret line="63" column="5" selection-start-line="63" selection-start-column="5" selection-end-line="63" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -103,32 +105,20 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/inha/dorothy/src/entrance/CreateActivity.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/inha/dorothy/src/mydraw/MyDrawActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="309">
-              <caret line="36" column="23" selection-start-line="36" selection-start-column="16" selection-end-line="36" selection-end-column="23" />
+            <state relative-caret-position="-1186">
+              <caret line="37" column="13" selection-start-line="37" selection-start-column="13" selection-end-line="37" selection-end-column="13" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_create.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="75" column="50" lean-forward="true" selection-start-line="75" selection-start-column="50" selection-end-line="75" selection-end-column="50" />
-            </state>
-          </provider>
+        <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_drawing.xml">
           <provider editor-type-id="android-designer2" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/inha/dorothy/src/entrance/EntranceActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="798">
-              <caret line="70" column="22" selection-start-line="70" selection-start-column="8" selection-end-line="70" selection-end-column="22" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="455">
+              <caret line="119" column="23" selection-start-line="119" selection-start-column="23" selection-end-line="119" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -176,7 +166,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/inha/dorothy/src/draw/sensorset/SensorSet2.java" />
         <option value="$PROJECT_DIR$/src/main/res/values/dimen.xml" />
         <option value="$PROJECT_DIR$/src/main/res/values/colors.xml" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/activity_drawing.xml" />
         <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/src/main/java/com/inha/dorothy/src/firebase/DownloadService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/inha/dorothy/src/draw/models/PlaceDoodleInfo.java" />
@@ -193,13 +182,14 @@
         <option value="$PROJECT_DIR$/src/main/java/com/inha/dorothy/src/entrance/EntranceActivity.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/inha/dorothy/src/draw/DrawingActivity.java" />
         <option value="$PROJECT_DIR$/src/main/res/layout/activity_create.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/activity_drawing.xml" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
-    <option name="x" value="-9" />
-    <option name="width" value="1738" />
-    <option name="height" value="1399" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-10" />
+    <option name="width" value="1739" />
+    <option name="height" value="1400" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -207,8 +197,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="ProjectPane" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -240,7 +228,7 @@
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="dorothy" type="cbb59c9e:AndroidPsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="entrance" type="462c0819:PsiDirectoryNode" />
+              <item name="mydraw" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ArDrawing" type="1abcf292:AndroidViewProjectNode" />
@@ -261,7 +249,9 @@
           <select />
         </subPane>
       </pane>
+      <pane id="ProjectPane" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -478,11 +468,11 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="0" width="1390" height="1119" extended-state="0" />
+    <frame x="-8" y="0" width="1391" height="1120" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.1406015" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.14049587" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Build Variants" order="4" side_tool="true" />
@@ -491,65 +481,38 @@
       <window_info id="Resources Explorer" order="7" />
       <window_info id="Capture Tool" order="8" />
       <window_info anchor="bottom" id="Run" order="0" weight="0.328934" />
-      <window_info anchor="bottom" id="Logcat" order="1" visible="true" weight="0.3275862" />
+      <window_info anchor="bottom" id="Logcat" order="1" weight="0.3275862" />
       <window_info anchor="bottom" id="TODO" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" />
       <window_info anchor="bottom" id="Terminal" order="4" />
       <window_info anchor="bottom" id="Event Log" order="5" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="6" />
-      <window_info anchor="bottom" id="Build" order="7" weight="0.23123732" />
+      <window_info anchor="bottom" id="Build" order="7" weight="0.23100305" />
       <window_info anchor="bottom" id="Find" order="8" weight="0.32998565" />
-      <window_info anchor="bottom" id="Android Profiler" order="9" />
+      <window_info anchor="bottom" id="Android Profiler" order="9" show_stripe_button="false" />
       <window_info anchor="right" id="Viewer" order="0" side_tool="true" weight="0.32891247" />
       <window_info anchor="right" id="Device File Explorer" order="1" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="2" />
       <window_info anchor="right" id="Gradle" order="3" weight="0.32907587" />
       <window_info anchor="right" id="Theme Preview" order="4" />
-      <window_info active="true" anchor="right" id="Preview" order="5" visible="true" weight="0.28270677" />
+      <window_info active="true" anchor="right" id="Preview" order="5" visible="true" weight="0.32757324" />
       <window_info anchor="right" id="Palette&#9;" order="6" />
     </layout>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../../../test/app/src/main/java/com/inha/googletest/MainActivity.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_login.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="3" column="33" selection-start-line="3" selection-start-column="33" selection-end-line="3" selection-end-column="33" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/menu/entrance_menu.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="9" column="10" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
-          <folding>
-            <element signature="e#170#200#0" expanded="true" />
-            <element signature="e#277#307#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/drawable/src_create_background.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="3" column="50" selection-start-line="3" selection-start-column="50" selection-end-line="3" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/drawable/src_entrance_stroke.xml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_entrance.xml">
+      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="226">
           <caret line="66" column="33" lean-forward="true" selection-start-line="66" selection-start-column="33" selection-end-line="66" selection-end-column="33" />
         </state>
       </provider>
-      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/item_entrance.xml">
+      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="494">
           <caret line="27" column="21" lean-forward="true" selection-start-line="27" selection-start-column="21" selection-end-line="27" selection-end-column="21" />
@@ -558,7 +521,6 @@
           </folding>
         </state>
       </provider>
-      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/inha/dorothy/src/main/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -574,13 +536,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/inha/dorothy/src/firebase/RoomAdapter.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/inha/dorothy/src/firebase/Room.java" />
-    <entry file="file://$USER_HOME$/Downloads/RokSeoul-master/RokSeoul-master/RokSeoul/app/src/main/java/seoulapp/chok/rokseoul/drawingtool/view/DrawingView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="36" column="12" lean-forward="true" selection-start-line="36" selection-start-column="12" selection-end-line="36" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/Downloads/RokSeoul-master/RokSeoul-master/RokSeoul/app/src/main/java/seoulapp/chok/rokseoul/drawingtool/view/DrawingView.java" />
     <entry file="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4ffcc55520fe3c8af3a0c0ae59a01f2a/firebase-storage-19.1.1/jars/classes.jar!/com/google/firebase/storage/UploadTask.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="7201">
@@ -598,9 +554,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/res/drawable/ic_eraser.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$USER_HOME$/Downloads/drawing-test-master/drawing-test-master/app/src/main/res/drawable/paint.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$USER_HOME$/Downloads/drawing-test-master/drawing-test-master/app/src/main/res/drawable/paint.xml" />
     <entry file="file://$PROJECT_DIR$/src/main/res/values/dimen.xml" />
     <entry file="file://$PROJECT_DIR$/src/main/res/values/dimens.xml">
       <provider selected="true" editor-type-id="text-editor" />
@@ -618,36 +572,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/brush_chooser.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="13" column="36" selection-start-line="13" selection-start-column="31" selection-end-line="13" selection-end-column="36" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_drawing.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2318">
-          <caret line="122" column="52" selection-start-line="122" selection-start-column="52" selection-end-line="122" selection-end-column="52" />
-          <folding>
-            <element signature="e#2219#2238#0" expanded="true" />
-            <element signature="e#2662#2681#0" expanded="true" />
-            <element signature="e#3096#3111#0" expanded="true" />
-            <element signature="e#3526#3541#0" expanded="true" />
-            <element signature="e#3956#3970#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$USER_HOME$/Downloads/drawing-test-master/drawing-test-master/app/src/main/res/values/colors.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="8" column="42" lean-forward="true" selection-start-line="7" selection-start-column="3" selection-end-line="8" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/Downloads/drawing-test-master/drawing-test-master/app/src/main/res/values/colors.xml" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/inha/dorothy/BaseActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -658,13 +583,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Downloads/drawing-test-master/drawing-test-master/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="19" column="17" selection-start-line="19" selection-start-column="17" selection-end-line="19" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/Downloads/drawing-test-master/drawing-test-master/build.gradle" />
     <entry file="file://$PROJECT_DIR$/src/main/res/values/colors.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="171">
@@ -672,20 +591,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Downloads/drawing-test-master/drawing-test-master/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="12" column="5" lean-forward="true" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/Downloads/drawing-test-master/drawing-test-master/app/build.gradle" />
     <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="15" column="35" selection-start-line="15" selection-start-column="35" selection-end-line="15" selection-end-column="35" />
         </state>
       </provider>
-      <provider editor-type-id="android-manifest" />
     </entry>
     <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
@@ -694,50 +607,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/inha/dorothy/src/draw/models/FileNameInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/inha/dorothy/src/draw/models/RoomDoodleInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/inha/dorothy/src/draw/sensorset/SensorSet2.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3192">
-          <caret line="63" column="5" selection-start-line="63" selection-start-column="5" selection-end-line="63" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/inha/dorothy/src/draw/util/TranslationUtil.java" />
-    <entry file="file://$USER_HOME$/Downloads/drawing-test-master/drawing-test-master/app/src/main/java/com/softsquared/drawing/DrawingActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-6845" />
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Downloads/RokSeoul-master/RokSeoul-master/RokSeoul/app/src/main/java/seoulapp/chok/rokseoul/firebase/models/DownloadURLs.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="20" column="77" selection-start-line="20" selection-start-column="68" selection-end-line="20" selection-end-column="77" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Downloads/RokSeoul-master/RokSeoul-master/RokSeoul/app/src/main/java/seoulapp/chok/rokseoul/drawingtool/DrawingActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="255" column="51" selection-start-line="255" selection-start-column="51" selection-end-line="255" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/Downloads/drawing-test-master/drawing-test-master/app/src/main/java/com/softsquared/drawing/DrawingActivity.java" />
+    <entry file="file://$USER_HOME$/Downloads/RokSeoul-master/RokSeoul-master/RokSeoul/app/src/main/java/seoulapp/chok/rokseoul/firebase/models/DownloadURLs.java" />
+    <entry file="file://$USER_HOME$/Downloads/RokSeoul-master/RokSeoul-master/RokSeoul/app/src/main/java/seoulapp/chok/rokseoul/drawingtool/DrawingActivity.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/inha/dorothy/src/firebase/DownloadService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1606">
@@ -746,13 +619,6 @@
             <element signature="e#4567#5091#0" expanded="true" />
             <element signature="e#5090#5091#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/inha/dorothy/src/draw/cameraset/Camera2Preview.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="136" column="32" selection-start-line="136" selection-start-column="32" selection-end-line="136" selection-end-column="32" />
         </state>
       </provider>
     </entry>
@@ -778,12 +644,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_main.xml">
+      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="15" column="38" selection-start-line="15" selection-start-column="38" selection-end-line="15" selection-end-column="38" />
         </state>
       </provider>
-      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/inha/dorothy/src/entrance/RoomAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -839,23 +705,51 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_create.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1387">
+          <caret line="73" column="36" lean-forward="true" selection-start-line="73" selection-start-column="36" selection-end-line="73" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-29/android/view/View.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="24635" column="25" selection-start-line="24635" selection-start-column="25" selection-end-line="24635" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/inha/dorothy/src/draw/models/RoomDoodleInfo.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/inha/dorothy/src/draw/DrawingActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="355">
-          <caret line="199" column="13" selection-start-line="199" selection-start-column="13" selection-end-line="199" selection-end-column="13" />
+        <state relative-caret-position="-2519">
+          <caret line="123" column="16" lean-forward="true" selection-start-line="123" selection-start-column="16" selection-end-line="123" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/inha/dorothy/src/entrance/EntranceActivity.java">
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/brush_chooser.xml">
+      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="798">
-          <caret line="70" column="22" selection-start-line="70" selection-start-column="8" selection-end-line="70" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="247">
+          <caret line="13" column="36" selection-start-line="13" selection-start-column="31" selection-end-line="13" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/inha/dorothy/src/draw/view/DrawingView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-703">
+          <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/inha/dorothy/src/draw/view/AutoFitTextureView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="760">
+          <caret line="46" column="24" selection-start-line="46" selection-start-column="12" selection-end-line="46" selection-end-column="32" />
         </state>
       </provider>
     </entry>
@@ -866,13 +760,54 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_create.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/inha/dorothy/src/draw/cameraset/Camera2Preview.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="75" column="50" lean-forward="true" selection-start-line="75" selection-start-column="50" selection-end-line="75" selection-end-column="50" />
+        <state relative-caret-position="76">
+          <caret line="40" column="21" selection-start-line="40" selection-start-column="21" selection-end-line="40" selection-end-column="21" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/inha/dorothy/src/draw/models/FileNameInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="8" column="26" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/inha/dorothy/src/entrance/EntranceActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-832">
+          <caret line="70" column="22" selection-start-line="70" selection-start-column="8" selection-end-line="70" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/inha/dorothy/src/draw/sensorset/SensorSet2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1197">
+          <caret line="63" column="5" selection-start-line="63" selection-start-column="5" selection-end-line="63" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/inha/dorothy/src/mydraw/MyDrawActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1186">
+          <caret line="37" column="13" selection-start-line="37" selection-start-column="13" selection-end-line="37" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_drawing.xml">
       <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="455">
+          <caret line="119" column="23" selection-start-line="119" selection-start-column="23" selection-end-line="119" selection-end-column="23" />
+        </state>
+      </provider>
     </entry>
   </component>
 </project>
