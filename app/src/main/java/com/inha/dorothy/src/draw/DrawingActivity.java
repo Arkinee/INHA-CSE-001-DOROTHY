@@ -162,13 +162,13 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
         LocalBroadcastManager.getInstance(this)
                 .registerReceiver(mDownloadReceiver, DownloadService.getIntentFilter());
 
-        final DatabaseReference reference = mFirebase.getReference().child("room").child("room_id").child(roomId).child("RoomInfo");
+        final DatabaseReference reference = mFirebase.getReference().child("room").child("room_id").child(roomId).child("RoomInfo").child("person");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                RoomInfo info = dataSnapshot.getValue(RoomInfo.class);
-                mPerson = info.person;
-                Log.d("로그", "person: " + info.person);
+                Long p = dataSnapshot.getValue(Long.class);
+                mPerson = p;
+                Log.d("로그", "person: " + mPerson);
                 reference.setValue(mPerson + 1);
             }
 
@@ -187,13 +187,13 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
         Log.d(TAG, "Cachedir : " + getCacheDir());
         getCacheDir().deleteOnExit();
 
-        final DatabaseReference reference = mFirebase.getReference().child("room").child("room_id").child(roomId).child("RoomInfo");
+        final DatabaseReference reference = mFirebase.getReference().child("room").child("room_id").child(roomId).child("RoomInfo").child("person");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                RoomInfo info = dataSnapshot.getValue(RoomInfo.class);
-                mPerson = info.person;
-                Log.d("로그", "person: " + info.person);
+                Long p = dataSnapshot.getValue(Long.class);
+                mPerson = p;
+                Log.d("로그", "person: " + p);
                 reference.setValue(mPerson - 1);
             }
 
