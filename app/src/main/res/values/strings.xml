@@ -27,6 +27,8 @@
     <string name="entrance_menu_create">방 생성</string>
     <string name="entrance_menu_remove">방 제거</string>
     <string name="entrance_person_limit">/ 30</string>
+    <string name="entrance_menu_remove_toast">제거할 방을 고르세요</string>
+    <string name="entrance_menu_remove_person_exist_toast">방에 사용자가 존재합니다</string>
 
     <!-- Create -->
     <string name="create_room_title">방 제목 (필수)</string>

@@ -37,10 +37,11 @@ public class EntranceActivity extends BaseActivity implements PopupMenu.OnMenuIt
     Map<String, Object> roomValue = null;
 
     static int CREATE_ID = 1000;
+    private boolean mRemove;
+
     private RecyclerView mRvRoom;
     private RoomAdapter mAdapter;
     private ArrayList<Room> mRoomArrayList;
-    private ArrayList<Room> mFilterList;
     private EditText mEdtEntrance;
     private String mRoomUniqueKey;
 
@@ -50,7 +51,7 @@ public class EntranceActivity extends BaseActivity implements PopupMenu.OnMenuIt
         setContentView(R.layout.activity_entrance);
 
         mRoomArrayList = new ArrayList<>();
-        mFilterList = new ArrayList<>();
+        mRemove = false;
 
         mEdtEntrance = findViewById(R.id.edt_entrance_search);
         mEdtEntrance.setOnClickListener(new View.OnClickListener() {
@@ -96,9 +97,18 @@ public class EntranceActivity extends BaseActivity implements PopupMenu.OnMenuIt
             @Override
             public void onItemClick(View v, int pos) {
                 Room room = mAdapter.getItem(pos);
-                Intent intent = new Intent(getApplicationContext(), DrawingActivity.class);
-                intent.putExtra("room_id", room.id);
-                startActivity(intent);
+                if(!mRemove) {
+                    Intent intent = new Intent(getApplicationContext(), DrawingActivity.class);
+                    intent.putExtra("room_id", room.id);
+                    startActivity(intent);
+                }else{
+                    if(room.info.person == 0) {
+                        removeRoom(room.id);
+                    }else{
+                        showCustomMessage(getString(R.string.entrance_menu_remove_person_exist_toast));
+                    }
+                    mRemove = false;
+                }
             }
         });
 
@@ -112,7 +122,8 @@ public class EntranceActivity extends BaseActivity implements PopupMenu.OnMenuIt
                 startActivityForResult(intent, CREATE_ID);
                 return true;
             case R.id.remove:
-                showCustomMessage("방 삭제");
+                showCustomMessage(getString(R.string.entrance_menu_remove_toast));
+                mRemove = true;
                 return true;
             default:
                 return false;
@@ -159,6 +170,11 @@ public class EntranceActivity extends BaseActivity implements PopupMenu.OnMenuIt
             childUpdates.put("/room/room_id/" + mRoomUniqueKey + "/RoomInfo", postValues);
             mCreateReference.updateChildren(childUpdates);
         }
+    }
+
+    //방 삭제
+    public void removeRoom(String room_id){
+
     }
 
     public void onClick(View view) {
