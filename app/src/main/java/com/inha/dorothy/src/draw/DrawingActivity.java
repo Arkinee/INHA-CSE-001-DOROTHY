@@ -123,6 +123,20 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
         camera2Preview = new Camera2Preview(this, textureView);
         sensorSet2 = new SensorSet2(this);
 
+        DatabaseReference pRef = mFirebase.getReference().child("room").child("room_id").child(roomId).child("RoomInfo").child("person");
+        pRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Long currentPerson = dataSnapshot.getValue(Long.class);
+                mPerson = currentPerson;
+                progressDoodles.setText("Download : " + doodleCount + "\nTotal : " + storageSet.getmUrls().size() + "\nPerson : " + mPerson + " / 30");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         //다운로드Receiver
         mDownloadReceiver = new BroadcastReceiver() {
@@ -167,9 +181,8 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Long p = dataSnapshot.getValue(Long.class);
-                mPerson = p;
-                Log.d("로그", "person: " + mPerson);
-                reference.setValue(mPerson + 1);
+//                Log.d("로그", "person: " + p);
+                reference.setValue(p + 1);
             }
 
             @Override
@@ -192,9 +205,8 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Long p = dataSnapshot.getValue(Long.class);
-                mPerson = p;
-                Log.d("로그", "person: " + p);
-                reference.setValue(mPerson - 1);
+//                Log.d("로그", "person: " + p);
+                reference.setValue(p - 1);
             }
 
             @Override
@@ -269,7 +281,7 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
     }
 
     public void setProgressDoodles() {
-        progressDoodles.setText("Download : " + ++doodleCount + "\nTotal : " + storageSet.getmUrls().size());
+        progressDoodles.setText("Download : " + doodleCount + "\nTotal : " + storageSet.getmUrls().size() + "\nPerson : " + mPerson + " / 30");
     }
 
 
