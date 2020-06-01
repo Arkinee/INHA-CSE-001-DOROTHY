@@ -36,7 +36,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItemClickListener{
+public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItemClickListener {
 
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseUser mUser = mAuth.getCurrentUser();
@@ -89,18 +89,18 @@ public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItem
         mAdapter.setOnItemClickListener(new DrawAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int pos) {
-                if(!mRemove){   // '삭제하기' 중이 아닌 경우
+                if (!mRemove) {   // '삭제하기' 중이 아닌 경우
                     // 선택한 그림이 포함된 방의 위치를 다이얼로그 형태로 보여줌
                     AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                     builder.setTitle(getString(R.string.my_draw_dialog_title)).setMessage(mDrawArrayList.get(pos).room);
                     AlertDialog alertDialog = builder.create();
                     alertDialog.show();
-                }else{
+                } else {
                     // '삭제하기' 중인 경우 선택된 상태에 따라 선택, 선택안됨으로 update시켜줌
-                    if(!mDrawArrayList.get(pos).isCheck) {
+                    if (!mDrawArrayList.get(pos).isCheck) {
                         mDrawArrayList.get(pos).isCheck = true;
                         mAdapter.notifyDataSetChanged();
-                    }else{
+                    } else {
                         mDrawArrayList.get(pos).isCheck = false;
                         mAdapter.notifyDataSetChanged();
                     }
@@ -114,9 +114,9 @@ public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItem
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mDoodleList.clear();
 
-                if(dataSnapshot.hasChildren()){
+                if (dataSnapshot.hasChildren()) {
                     Iterator<DataSnapshot> iter = dataSnapshot.getChildren().iterator();
-                    while (iter.hasNext()){
+                    while (iter.hasNext()) {
                         DataSnapshot snap = iter.next();
                         String doodle = snap.getKey();
                         mDoodleList.add(doodle);
@@ -145,9 +145,9 @@ public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItem
                         RoomInfo info = snap.child("RoomInfo").getValue(RoomInfo.class);
                         ArrayList<String> ids = new ArrayList<>();
 
-                        if(snap.child("RoomInfo").child("downloadURL").hasChildren()){
+                        if (snap.child("RoomInfo").child("downloadURL").hasChildren()) {
                             Iterator<DataSnapshot> iter2 = snap.child("RoomInfo").child("downloadURL").getChildren().iterator();
-                            while (iter2.hasNext()){
+                            while (iter2.hasNext()) {
                                 DataSnapshot snap2 = iter2.next();
                                 ids.add(snap2.getKey());
                                 //Log.d("로그", "추가: " + snap2.getKey());
@@ -194,7 +194,7 @@ public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItem
     }
 
     public void OnClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.iv_my_draw_back_arrow:    // 뒤로가기 이미지 클릭 시 행동
                 finish();
                 break;
@@ -213,10 +213,10 @@ public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItem
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.remove:   // 삭제하기 메뉴
-                if(!mRemove) {
+                if (!mRemove) {
                     mRemove = true;
                     mTvCheckRemove.setText(getString(R.string.my_draw_tv_check_remove));
-                }else{
+                } else {
                     mRemove = false;
                     mTvCheckRemove.setText("");
 
@@ -232,7 +232,7 @@ public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItem
                 builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        for(MyDraw draw : mDrawArrayList){
+                        for (MyDraw draw : mDrawArrayList) {
                             draw.isCheck = true;
                         }
 
@@ -252,12 +252,12 @@ public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItem
     }
 
     // 그림을 지우는 함수
-    public void removeDraw(){
+    public void removeDraw() {
 
         int cnt = 0;    // 지워진 그림의 개수
-        for(MyDraw draw : mDrawArrayList){
+        for (MyDraw draw : mDrawArrayList) {
 
-            if(draw.isCheck){
+            if (draw.isCheck) {
                 cnt += 1;
                 String room = searchRoom(draw.id);
 
@@ -309,11 +309,11 @@ public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItem
     }
 
     // 해당 아이디를 가진 방의 이름 리턴
-    public String compare(String id){
+    public String compare(String id) {
         String result = "";
-        for(int i=0; i < mRoomList.size(); i++){
-            for(int j=0; j<mRoomList.get(i).ids.size(); j++){
-                if(id.equals(mRoomList.get(i).ids.get(j))){
+        for (int i = 0; i < mRoomList.size(); i++) {
+            for (int j = 0; j < mRoomList.get(i).ids.size(); j++) {
+                if (id.equals(mRoomList.get(i).ids.get(j))) {
                     result = mRoomList.get(i).title;
                     return result;
                 }
@@ -324,12 +324,12 @@ public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItem
     }
 
     // 해당 아이디를 가진 방 리턴
-    public String searchRoom(String id){
+    public String searchRoom(String id) {
         String result = "";
 
-        for(int i=0; i<mRoomList.size(); i++){
-            for(int j=0; j< mRoomList.get(i).ids.size(); j++){
-                if(mRoomList.get(i).ids.get(j).equals(id)){
+        for (int i = 0; i < mRoomList.size(); i++) {
+            for (int j = 0; j < mRoomList.get(i).ids.size(); j++) {
+                if (mRoomList.get(i).ids.get(j).equals(id)) {
                     return mRoomList.get(i).room_id;
                 }
             }
@@ -339,7 +339,7 @@ public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItem
     }
 
     // 사용자가 그림을 지우면 사용자가 그린 그림의 개수 동기화
-    public void updateRoomDoodleCount(String room_id){
+    public void updateRoomDoodleCount(String room_id) {
 
         final ArrayList<String> roomDoodleList = new ArrayList<>();
         final DatabaseReference roomDoodleRef = mFirebase.getReference().child("room").child("room_id").child(room_id).child("RoomInfo");
@@ -347,9 +347,9 @@ public class MyDrawActivity extends BaseActivity implements PopupMenu.OnMenuItem
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                if(dataSnapshot.hasChildren()){
+                if (dataSnapshot.hasChildren()) {
                     Iterator<DataSnapshot> iter = dataSnapshot.getChildren().iterator();
-                    while (iter.hasNext()){
+                    while (iter.hasNext()) {
                         DataSnapshot snap = iter.next();
                         String doodle = snap.getKey();
                         roomDoodleList.add(doodle);

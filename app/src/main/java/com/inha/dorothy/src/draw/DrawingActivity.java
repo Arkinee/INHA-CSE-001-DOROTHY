@@ -136,7 +136,7 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
                     sensorSet2.makeValueFromFileName(Objects.requireNonNull(intent.getStringExtra(DownloadService.EXTRA_FILE_NAME))
                             , intent.getStringExtra(DownloadService.EXTRA_DOWNLOAD_PATH), false);
                     doodleCount++;
-                    progressDoodles.setText("Download : "+doodleCount+"\nTotal : "+storageSet.getmUrls().size()+"\nPerson : "+mPerson+" / 30");
+                    progressDoodles.setText("Download : " + doodleCount + "\nTotal : " + storageSet.getmUrls().size() + "\nPerson : " + mPerson + " / 30");
 
 
                     downloadCheck = true;
@@ -162,13 +162,14 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
         LocalBroadcastManager.getInstance(this)
                 .registerReceiver(mDownloadReceiver, DownloadService.getIntentFilter());
 
-        DatabaseReference reference = mFirebase.getReference().child("room").child("room_id").child(roomId).child("RoomInfo");
-        reference.addValueEventListener(new ValueEventListener() {
+        final DatabaseReference reference = mFirebase.getReference().child("room").child("room_id").child(roomId).child("RoomInfo");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 RoomInfo info = dataSnapshot.getValue(RoomInfo.class);
                 mPerson = info.person;
                 Log.d("로그", "person: " + info.person);
+                reference.setValue(mPerson + 1);
             }
 
             @Override
@@ -176,10 +177,6 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
 
             }
         });
-
-        DatabaseReference ref = mFirebase.getReference().child("room").child("room_id").child(roomId).child("RoomInfo").child("person");
-        ref.setValue(mPerson + 1);
-
 
     }
 
@@ -187,16 +184,17 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
     public void onStop() {
         super.onStop();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mDownloadReceiver);
-        Log.d(TAG, "Cachedir : "+getCacheDir());
+        Log.d(TAG, "Cachedir : " + getCacheDir());
         getCacheDir().deleteOnExit();
 
-        DatabaseReference reference = mFirebase.getReference().child("room").child("room_id").child(roomId).child("RoomInfo");
-        reference.addValueEventListener(new ValueEventListener() {
+        final DatabaseReference reference = mFirebase.getReference().child("room").child("room_id").child(roomId).child("RoomInfo");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 RoomInfo info = dataSnapshot.getValue(RoomInfo.class);
                 mPerson = info.person;
                 Log.d("로그", "person: " + info.person);
+                reference.setValue(mPerson - 1);
             }
 
             @Override
@@ -204,9 +202,6 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
 
             }
         });
-
-        DatabaseReference ref = mFirebase.getReference().child("room").child("room_id").child(roomId).child("RoomInfo").child("person");
-        ref.setValue(mPerson - 1);
 
     }
 
@@ -261,11 +256,20 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
 
 
     //download check
-    public void setDownloadCheck(boolean check){ downloadCheck = check; }
-    public boolean getDownloadCheck(){ return downloadCheck; }
-    public SensorSet2 getSensorSet2(){ return sensorSet2;}
-    public void setProgressDoodles(){
-        progressDoodles.setText("Download : "+ ++doodleCount+"\nTotal : "+ storageSet.getmUrls().size());
+    public void setDownloadCheck(boolean check) {
+        downloadCheck = check;
+    }
+
+    public boolean getDownloadCheck() {
+        return downloadCheck;
+    }
+
+    public SensorSet2 getSensorSet2() {
+        return sensorSet2;
+    }
+
+    public void setProgressDoodles() {
+        progressDoodles.setText("Download : " + ++doodleCount + "\nTotal : " + storageSet.getmUrls().size());
     }
 
 
@@ -286,12 +290,11 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
         long curTime = System.currentTimeMillis();
         long gapTime = curTime - backBtnTime;
 
-        if(0 <= gapTime && 2000 >= gapTime) {
+        if (0 <= gapTime && 2000 >= gapTime) {
             super.onBackPressed();
-        }
-        else {
+        } else {
             backBtnTime = curTime;
-            Toast.makeText(this, "한번 더 누르면 종료됩니다.",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
         }
 
 
