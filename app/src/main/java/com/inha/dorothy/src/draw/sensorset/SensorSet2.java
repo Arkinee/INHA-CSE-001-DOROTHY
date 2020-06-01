@@ -147,7 +147,7 @@ public class SensorSet2 implements SensorEventListener {
         fileNameInfoList.clear();
     }
 //
-    private void showDoodles(){
+    public void showDoodles(){
         int i = 0;
         for (FileNameInfo fileNameInfo : fileNameInfoList) {
             if (       ((Math.abs(fileNameInfo.fileAzimuth - mAzimuth) <= 10 || Math.abs(fileNameInfo.fileAzimuth - mAzimuth) >= 350))
