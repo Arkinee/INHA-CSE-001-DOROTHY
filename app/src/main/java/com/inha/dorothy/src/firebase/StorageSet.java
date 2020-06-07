@@ -83,6 +83,9 @@ public class StorageSet {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 try {
+                    mUrls.clear();
+
+                    //모든
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         mUrls.add(snapshot.getValue(DownloadImage.class));
                     }
@@ -116,7 +119,7 @@ public class StorageSet {
     }
 
     public void onResume() {
-        mRoomDownloadUrl.addListenerForSingleValueEvent(mRoomValueEventListener);
+        mRoomDownloadUrl.addValueEventListener(mRoomValueEventListener);
     }
 
 
@@ -313,7 +316,7 @@ public class StorageSet {
     /**
      * 로컬파일로 받아오기
      **/
-    private void downloadToLocal(final DownloadImage url) {
+    public void downloadToLocal(final DownloadImage url) {
 
         StorageReference islandRef = storage.getReferenceFromUrl(url.getUrl());
         try {

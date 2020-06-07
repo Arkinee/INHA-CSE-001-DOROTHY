@@ -40,6 +40,7 @@ import com.inha.dorothy.src.draw.view.DrawingView;
 import com.inha.dorothy.src.entrance.RoomInfo;
 import com.inha.dorothy.src.firebase.DownloadService;
 import com.inha.dorothy.src.firebase.StorageSet;
+import com.inha.dorothy.src.firebase.model.DownloadImage;
 
 
 import java.text.DateFormat;
@@ -73,7 +74,7 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
 
     //다운받은 낙서 수 / 총 낙서수
     private TextView progressDoodles;
-    private int doodleCount;
+//    private int doodleCount;
 
     //firebase
     private StorageSet storageSet;
@@ -95,7 +96,7 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_drawing);
 
-        doodleCount = 0;
+//        doodleCount = 0;
         mAuth = FirebaseAuth.getInstance();
 
         //get drawing view
@@ -123,6 +124,22 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
         camera2Preview = new Camera2Preview(this, textureView);
         sensorSet2 = new SensorSet2(this);
 
+        //room_person 정보가 바뀔때! 갱신해주기!
+        DatabaseReference pRef = mFirebase.getReference().child("room").child("room_id").child(roomId).child("RoomInfo").child("person");
+        pRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Long currentPerson = dataSnapshot.getValue(Long.class);
+                mPerson = currentPerson;
+//                progressDoodles.setText("Download : " + doodleCount + "\nTotal : " + storageSet.getmUrls().size() + "\nPerson : " + mPerson + " / 30");
+                progressDoodles.setText("Total : " + storageSet.getmUrls().size() + "\nPerson : " + mPerson + " / 30");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         //다운로드Receiver
         mDownloadReceiver = new BroadcastReceiver() {
@@ -135,9 +152,9 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
 
                     sensorSet2.makeValueFromFileName(Objects.requireNonNull(intent.getStringExtra(DownloadService.EXTRA_FILE_NAME))
                             , intent.getStringExtra(DownloadService.EXTRA_DOWNLOAD_PATH), false);
-                    doodleCount++;
-                    progressDoodles.setText("Download : " + doodleCount + "\nTotal : " + storageSet.getmUrls().size() + "\nPerson : " + mPerson + " / 30");
-
+//                    doodleCount++;
+//                    progressDoodles.setText("Download : " + doodleCount + "\nTotal : " + storageSet.getmUrls().size() + "\nPerson : " + mPerson + " / 30");
+                    progressDoodles.setText("Total : " + storageSet.getmUrls().size() + "\nPerson : " + mPerson + " / 30");
 
                     downloadCheck = true;
                     hideProgressDialog();
@@ -152,7 +169,6 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
             }
         };
 
-
     }
 
     @Override
@@ -162,14 +178,13 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
         LocalBroadcastManager.getInstance(this)
                 .registerReceiver(mDownloadReceiver, DownloadService.getIntentFilter());
 
-        final DatabaseReference reference = mFirebase.getReference().child("room").child("room_id").child(roomId).child("RoomInfo");
+        final DatabaseReference reference = mFirebase.getReference().child("room").child("room_id").child(roomId).child("RoomInfo").child("person");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                RoomInfo info = dataSnapshot.getValue(RoomInfo.class);
-                mPerson = info.person;
-                Log.d("로그", "person: " + info.person);
-                reference.setValue(mPerson + 1);
+                Long p = dataSnapshot.getValue(Long.class);
+//                Log.d("로그", "person: " + p);
+                reference.setValue(p + 1);
             }
 
             @Override
@@ -187,14 +202,13 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
         Log.d(TAG, "Cachedir : " + getCacheDir());
         getCacheDir().deleteOnExit();
 
-        final DatabaseReference reference = mFirebase.getReference().child("room").child("room_id").child(roomId).child("RoomInfo");
+        final DatabaseReference reference = mFirebase.getReference().child("room").child("room_id").child(roomId).child("RoomInfo").child("person");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                RoomInfo info = dataSnapshot.getValue(RoomInfo.class);
-                mPerson = info.person;
-                Log.d("로그", "person: " + info.person);
-                reference.setValue(mPerson - 1);
+                Long p = dataSnapshot.getValue(Long.class);
+//                Log.d("로그", "person: " + p);
+                reference.setValue(p - 1);
             }
 
             @Override
@@ -269,7 +283,8 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
     }
 
     public void setProgressDoodles() {
-        progressDoodles.setText("Download : " + ++doodleCount + "\nTotal : " + storageSet.getmUrls().size());
+//        progressDoodles.setText("Download : " + doodleCount + "\nTotal : " + storageSet.getmUrls().size() + "\nPerson : " + mPerson + " / 30");
+        progressDoodles.setText("Total : " + storageSet.getmUrls().size() + "\nPerson : " + mPerson + " / 30");
     }
 
 

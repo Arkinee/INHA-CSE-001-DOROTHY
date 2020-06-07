@@ -1,39 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/transparent"
-        >
+        android:background="@android:color/transparent">
 
         <com.inha.dorothy.src.draw.view.AutoFitTextureView
+            android:id="@+id/textureView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/textureView"/>
+            android:layout_height="match_parent" />
+
         <TextView
+            android:id="@+id/drawing_degree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:text="0"
-            android:id="@+id/drawing_degree"
-            android:textSize="12sp"
-            android:textColor="@color/grey_300" />
+            android:textColor="@color/grey_300"
+            android:textSize="12sp" />
+
         <TextView
+            android:id="@+id/progress_doodles"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="top|start"
-            android:id="@+id/progress_doodles"
-            android:textSize="12sp"
-            android:textColor="@color/grey_300"/>
+            android:textColor="@color/grey_300"
+            android:textSize="12sp" />
+
         <FrameLayout
+            android:id="@+id/imageViewFrame"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/imageViewFrame"/>
+            android:layout_height="match_parent" />
 
 
         <!-- Custom View -->
@@ -41,10 +43,10 @@
             android:id="@+id/drawing"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="3dp"
             android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
             android:layout_marginTop="3dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="3dp"
             android:background="@android:color/transparent" />
         <!-- Color Palette -->
 
@@ -54,25 +56,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center"
-            android:orientation="horizontal"
             android:layout_marginBottom="@dimen/fab_margin"
-            >
+            android:orientation="horizontal">
+
             <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
+
             <ImageView
                 android:id="@+id/new_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:scaleType="centerCrop"
                 android:contentDescription="@string/start_new"
                 android:onClick="onClick"
+                android:scaleType="centerCrop"
                 android:src="@drawable/new_pic" />
+
             <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
+
             <ImageView
                 android:id="@+id/draw_btn"
                 android:layout_width="wrap_content"
@@ -84,7 +89,8 @@
             <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
+
             <ImageView
                 android:id="@+id/erase_btn"
                 android:layout_width="wrap_content"
@@ -96,37 +102,37 @@
             <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
+
             <ImageView
                 android:id="@+id/save_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/save"
                 android:onClick="onClick"
-                android:src="@drawable/save"/>
+                android:src="@drawable/save" />
+
             <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
         </LinearLayout>
-
-
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_drawing_select_color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:layout_marginBottom="48dp"
-            android:layout_marginEnd="16dp"
             android:layout_gravity="bottom|end"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="48dp"
             android:clickable="true"
+            android:focusable="true"
             android:onClick="onClick"
-            app:borderWidth="0dp"
-            app:backgroundTint="@android:color/white"
             android:src="@drawable/brush"
-            android:focusable="true" />
+            app:backgroundTint="@android:color/white"
+            app:borderWidth="0dp" />
     </FrameLayout>
 
 </RelativeLayout>
