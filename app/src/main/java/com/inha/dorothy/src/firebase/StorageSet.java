@@ -118,7 +118,7 @@ public class StorageSet {
     }
 
     public void onResume() {
-        mRoomDownloadUrl.addValueEventListener(mRoomValueEventListener);
+        mRoomDownloadUrl.addListenerForSingleValueEvent(mRoomValueEventListener);
     }
 
 
