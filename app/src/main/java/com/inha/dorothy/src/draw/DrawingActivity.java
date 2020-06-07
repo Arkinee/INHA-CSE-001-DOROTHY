@@ -124,6 +124,7 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
         camera2Preview = new Camera2Preview(this, textureView);
         sensorSet2 = new SensorSet2(this);
 
+        //room_person 정보가 바뀔때! 갱신해주기!
         DatabaseReference pRef = mFirebase.getReference().child("room").child("room_id").child(roomId).child("RoomInfo").child("person");
         pRef.addValueEventListener(new ValueEventListener() {
             @Override

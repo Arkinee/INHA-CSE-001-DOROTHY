@@ -82,6 +82,9 @@ public class StorageSet {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 try {
+                    mUrls.clear();
+
+                    //모든
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         mUrls.add(snapshot.getValue(DownloadImage.class));
                     }
@@ -115,7 +118,7 @@ public class StorageSet {
     }
 
     public void onResume() {
-        mRoomDownloadUrl.addListenerForSingleValueEvent(mRoomValueEventListener);
+        mRoomDownloadUrl.addValueEventListener(mRoomValueEventListener);
     }
 
 

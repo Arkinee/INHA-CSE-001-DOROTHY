@@ -95,7 +95,7 @@ public class SensorSet2 implements SensorEventListener {
             drawing_degree.setText("A : "+ mAzimuth+"("+getDirectionFromDegrees(fAzimuth)+")" +"\nP : "+mPitch);
 
             Log.d("sensorset", sensorCount + " / degree : "+mAzimuth + " / preAZ : " + fAzimuth+ "/ 방위 :" + getDirectionFromDegrees(fAzimuth));
-            if(sensorCount %5 == 0 ){
+            if(sensorCount % 3 == 0 ){
                 if(drawingActivity.getDownloadCheck()) {
                     try {
                         showDoodles();
