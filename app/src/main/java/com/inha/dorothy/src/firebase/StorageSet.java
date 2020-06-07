@@ -81,6 +81,7 @@ public class StorageSet {
         mRoomValueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 try {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         mUrls.add(snapshot.getValue(DownloadImage.class));
