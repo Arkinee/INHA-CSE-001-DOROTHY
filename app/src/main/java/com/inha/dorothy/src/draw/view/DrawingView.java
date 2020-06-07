@@ -9,6 +9,7 @@ import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
@@ -63,6 +64,7 @@ public class DrawingView extends View {
         super.onSizeChanged(w, h, oldw, oldh);
         canvasBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
         drawCanvas = new Canvas(canvasBitmap);
+        Log.d("로그", "OnSizeChanged");
     }
 
     //draw the view - will be called after touch event
@@ -70,6 +72,14 @@ public class DrawingView extends View {
     protected void onDraw(Canvas canvas) {
         canvas.drawBitmap(canvasBitmap, 0, 0, canvasPaint);
         canvas.drawPath(mDrawPath, drawPaint);
+    }
+
+    public void setCanvasBitmap(Bitmap b){
+        canvasBitmap = b;
+    }
+    public Bitmap getCanvasBitmap(){
+
+        return canvasBitmap;
     }
 
     //register user touches as drawing action

@@ -184,7 +184,7 @@ public class SensorSet2 implements SensorEventListener {
         }
     }
 
-    private void removeImageView(int i){
+    public void removeImageView(int i){
         try {
             int j = 0;
             for(int value : imageIndex) {
@@ -202,6 +202,10 @@ public class SensorSet2 implements SensorEventListener {
         }
     }
 //
+    public ArrayList<ImageView> getImageList(){
+        return imageList;
+    }
+
     public void limitImageList(int limit, String filePath , int fileNum){
         if(imageIndex.size()>=limit){
             int j = 0;

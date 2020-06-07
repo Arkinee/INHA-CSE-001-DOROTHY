@@ -119,7 +119,7 @@ public class StorageSet {
     }
 
     public void onResume() {
-        mRoomDownloadUrl.addListenerForSingleValueEvent(mRoomValueEventListener);
+        mRoomDownloadUrl.addValueEventListener(mRoomValueEventListener);
     }
 
 

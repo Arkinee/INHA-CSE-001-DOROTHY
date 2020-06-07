@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Build;
@@ -43,6 +44,8 @@ import com.inha.dorothy.src.firebase.StorageSet;
 import com.inha.dorothy.src.firebase.model.DownloadImage;
 
 
+import java.io.ByteArrayOutputStream;
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -89,9 +92,12 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
     //뒤로가기 입력 시간 저장 변수
     private long backBtnTime = 0;
 
+    private Bitmap mCurBitmap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("avtivity cycle", "onCreate");
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_drawing);
@@ -118,6 +124,13 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
 
         //set initial size
         drawView.setBrushSize(smallBrush);
+
+        byte[] byteArray = getIntent().getByteArrayExtra("canvas_bitmap");
+        if(byteArray != null) {
+            Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+            drawView.setCanvasBitmap(bitmap);
+            Log.d("로그", "bitmap setting");
+        }
 
         //API21이상
         textureView = findViewById(R.id.textureView);
@@ -174,6 +187,7 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void onStart() {
         super.onStart();
+        Log.d("avtivity cycle", "onStart");
         // Register download receiver
         LocalBroadcastManager.getInstance(this)
                 .registerReceiver(mDownloadReceiver, DownloadService.getIntentFilter());
@@ -198,9 +212,12 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void onStop() {
         super.onStop();
+        Log.d("avtivity cycle", "onStop");
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mDownloadReceiver);
         Log.d(TAG, "Cachedir : " + getCacheDir());
         getCacheDir().deleteOnExit();
+
+        mCurBitmap = getBitmapFromView(drawView);
 
         final DatabaseReference reference = mFirebase.getReference().child("room").child("room_id").child(roomId).child("RoomInfo").child("person");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -222,6 +239,7 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void onPause() {
         super.onPause();
+        Log.d("avtivity cycle", "onPause");
         Log.d("SDK", "SDK version 21+: " + Build.VERSION.SDK_INT);
         storageSet.onPause();
         sensorSet2.onPause();
@@ -230,10 +248,39 @@ public class DrawingActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void onResume() {
         super.onResume();
+        Log.d("avtivity cycle", "onResume");
         camera2Preview.onResume();
         Log.d("SDK", "SDK version 21+: " + Build.VERSION.SDK_INT);
         storageSet.onResume();// 원격 저장소 Resume
         sensorSet2.onResume();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d("avtivity cycle", "onRestart");
+        // 화면 상 이미지 중복을 방지하기 위해 새로운 액티비티 생성
+        Intent newActivity = new Intent(this, DrawingActivity.class);
+        newActivity.putExtra("room_id", roomId);
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        float scale = (float) (1024/(float)mCurBitmap.getWidth());
+        int image_w = (int) (mCurBitmap.getWidth() * scale);
+        int image_h = (int) (mCurBitmap.getHeight() * scale);
+        Bitmap resize = Bitmap.createScaledBitmap(mCurBitmap, image_w, image_h, true);
+        resize.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        newActivity.putExtra("canvas_bitmap", byteArray);
+
+        startActivity(newActivity);
+        //기존의 화면 Stack 에서 제거
+        finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("avtivity cycle", "onDestroy");
     }
 
     /**
