@@ -4,8 +4,4 @@
         android:id="@+id/create"
         android:title="@string/entrance_menu_create"
         />
-    <item
-        android:id="@+id/remove"
-        android:title="@string/entrance_menu_remove"
-        />
 </menu>
